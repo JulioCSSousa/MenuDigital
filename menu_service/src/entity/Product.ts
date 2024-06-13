@@ -9,29 +9,29 @@ export class Product {
   id!: string;
 
   @Column()
-  name!: string;
+  name: string;
 
   @Column()
-  flavor!: string;
+  flavor: string;
 
   @Column()
-  description!: string;
+  description: string;
 
   @Column()
-  isSale!: boolean;
+  isSale: boolean;
 
   @Column()
-  image!: string;
+  image: string;
 
   @OneToMany(() => SizeInfo, (size) => size.itemSizeId)
   @JoinColumn()
-  size!: SizeInfo[];
+  size: SizeInfo[];
 
   @ManyToOne(() => Category, (category) => category.product)
   @JoinColumn()
-  category!: Category;
+  category: Category;
 
   @OneToMany(() => Additional, (additional) => additional.id)
   @JoinColumn()
-  additional!: Additional[];
+  additional: Additional[];
 }

@@ -1,10 +1,10 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
 import * as dotenv from "dotenv";
-import { Product } from "./entity/Product";
-import { SizeInfo } from "./entity/SizeInfo";
-import { Additional } from "./entity/Additional";
-import { Category } from "./entity/Category";
+import { Product } from "../entity/Product";
+import { SizeInfo } from "../entity/SizeInfo";
+import { Additional } from "../entity/Additional";
+import { Category } from "../entity/Category";
 
 dotenv.config();
 
@@ -18,7 +18,7 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: [Product, SizeInfo, Additional, Category],
-    migrations: [],
+    migrations: [Product, SizeInfo, Additional, Category],
     subscribers: [],
 })
 
