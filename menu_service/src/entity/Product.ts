@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
 import { SizeInfo } from './SizeInfo';
 import { Category } from './Category';
 import { Additional } from './Additional';
@@ -8,30 +8,30 @@ export class Product {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column()
-  name: string;
+  @Column({ length: 100 })
+  name!: string;
 
-  @Column()
-  flavor: string;
+  @Column({ length: 100 })
+  flavor!: string;
 
-  @Column()
+  @Column({ length: 500 })
   description: string;
 
   @Column()
-  isSale: boolean;
+  isSale!: boolean;
 
-  @Column()
+  @Column({ length: 300 })
   image: string;
 
-  @OneToMany(() => SizeInfo, (size) => size.itemSizeId)
+  @OneToMany(() => SizeInfo, (size) => size.product, { cascade: true })
   @JoinColumn()
   size: SizeInfo[];
 
-  @ManyToOne(() => Category, (category) => category.product)
-  @JoinColumn()
+  @ManyToOne(() => Category, (category) => category.product, { cascade: true })
+  @JoinColumn({name: 'categoryId'})
   category: Category;
 
-  @OneToMany(() => Additional, (additional) => additional.id)
+  @OneToMany(() => Additional, (additional) => additional.product, { cascade: true })
   @JoinColumn()
-  additional: Additional[];
+  additional?: Additional[] | null;
 }

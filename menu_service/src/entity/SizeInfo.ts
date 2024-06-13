@@ -6,16 +6,19 @@ export class SizeInfo {
   @PrimaryGeneratedColumn()
   itemSizeId!: number;
 
+  @Column({ length: 100 })
+  size!: string | null;
+
   @Column()
-  observation!: string;
+  observation!: string | null;
 
   @Column('float')
-  realAmount!: number;
+  realAmount: number;
 
   @Column('float')
-  previewsAmount!: number;
+  previewsAmount: number;
 
   @ManyToOne(() => Product, (product) => product.id)
-  @JoinColumn()
-  product!: Product;
+  @JoinColumn({ name: 'productId' })
+  product!: Product | null;
 }

@@ -29,11 +29,11 @@ import {
       }[];
     }[];
   
-    @ManyToOne(() => Product, product => product.id)
+    @ManyToOne(() => Product, product => product.id, { nullable: true, onDelete: 'CASCADE' })
     @JoinColumn()
-    product!: Product;
+    product?: Product | null;
   
-    @Column({ type: 'uuid' })
-    productId!: string;
+    @Column({ nullable: true })
+    productId?: string | null;  
   }
   

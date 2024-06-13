@@ -2,6 +2,9 @@ import { AppDataSource } from "./database/data-source"
 import express from 'express';
 import bodyParser from 'body-parser';
 import productRoutes from './routes/ProductRoutes';
+import sizeInfoRoutes from './routes/SizeRoutes';
+import categoryRoutes from './routes/CategoryRoutes';
+import additionalRoutes from './routes/additionalRoutes';
 
 AppDataSource.initialize().then(async () => {
 
@@ -10,11 +13,15 @@ AppDataSource.initialize().then(async () => {
 const server = express();
 
 server.use(bodyParser.json());
-server.use('/products', productRoutes);
+
 
 server.listen(3000, () => console.log("rodando...."));
 server.use(express.json());
+
 server.use(productRoutes);
+server.use(sizeInfoRoutes);
+server.use(categoryRoutes);
+server.use(additionalRoutes);
 
 
 }).catch(error => console.log(error));

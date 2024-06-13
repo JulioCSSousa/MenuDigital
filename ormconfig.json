@@ -5,10 +5,5 @@
     "port": 3306,
     "username": "root",
     "password": "159753",
-    "database": "menudigitaldb",
-    "entities": ["./menu_service/src/models/entity/**/*.ts"],
-    "migrations": ["./menu_service/src/migration/*.ts"],
-    "cli": {
-      "migrationsDir": "./src/migration/"
-    }
+    "database": "menudigitaldb"
   }]
