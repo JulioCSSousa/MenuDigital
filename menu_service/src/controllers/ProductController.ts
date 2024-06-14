@@ -14,74 +14,93 @@ export class ProductController {
 
   async getProducts(req: Request, res: Response): Promise<Response> {
     const productRepository = AppDataSource.getRepository(Product);
-    const products = await productRepository.find({ relations: ["category", "size", "additional"] });
-    return res.json(products);
-  }
-
-  async getProductById(req: Request, res: Response): Promise<Response> {
-    const productRepository = AppDataSource.getRepository(Product);
-    const product = await productRepository.findOne({
-      where: { id: req.params.id },
-      relations: ["category", "size", "additional"]
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const limit = parseInt(req.query.limit as string, 10) || 10;
+    const offset = (page - 1) * limit;
+    
+    const [product, total] = await productRepository.findAndCount({
+      relations: ["category", "size", "additional"],
+      skip: offset,
+      take: limit
     });
-    if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
-    }
-    return res.json(product);
-  }
 
-  async getProductByCategory(req: Request, res: Response): Promise<Response> {
-    const categoryId = Number(req.params.id)
-    const productRepository = AppDataSource.getRepository(Product);
-    const product = await productRepository.find({
-      where: { category: { id: categoryId } },
-      relations: ["category", "size", "additional"]
-    });
-    if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
-    }
-    return res.json(product);
-  }
+    const totalPages = Math.ceil(total / limit);
 
-  async updateProduct(req: Request, res: Response): Promise<Response> {
-    const productRepository = AppDataSource.getRepository(Product);
-    let product = await productRepository.findOne({ where: { id: req.params.id } });
-    if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
-    }
-    productRepository.merge(product, req.body);
-    const result = await productRepository.save(product);
-    return res.json(result);
-  }
-
-  public async patchProduct(req: Request, res: Response): Promise<Response> {
-    try {
-      const productRepository = AppDataSource.getRepository(Product);
-      const product = await productRepository.findOne({ where: { id: req.params.id }, relations: ["category", "size", "additional"] });
-
-      if (!product) {
-        return res.status(404).json({ message: 'Product not found' });
+    return res.json({
+      data: product,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages
       }
+    });
+  }
+
+  async getProductById(req: Request, res: Response): Promise < Response > {
+  const productRepository = AppDataSource.getRepository(Product);
+  const product = await productRepository.findOne({
+    where: { id: req.params.id },
+    relations: ["category", "size", "additional"]
+  });
+  if(!product) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+    return res.json(product);
+}
+
+  async getProductByCategory(req: Request, res: Response): Promise < Response > {
+  const categoryId = Number(req.params.id)
+    const productRepository = AppDataSource.getRepository(Product);
+  const product = await productRepository.find({
+    where: { category: { id: categoryId } },
+    relations: ["category", "size", "additional"]
+  });
+  if(!product) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+    return res.json(product);
+}
+
+  async updateProduct(req: Request, res: Response): Promise < Response > {
+  const productRepository = AppDataSource.getRepository(Product);
+  let product = await productRepository.findOne({ where: { id: req.params.id } });
+  if(!product) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+    productRepository.merge(product, req.body);
+  const result = await productRepository.save(product);
+  return res.json(result);
+}
+
+  public async patchProduct(req: Request, res: Response): Promise < Response > {
+  try {
+    const productRepository = AppDataSource.getRepository(Product);
+    const product = await productRepository.findOne({ where: { id: req.params.id }, relations: ["category", "size", "additional"] });
+
+    if(!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
 
       Object.keys(req.body).forEach((key) => {
-        product[key] = req.body[key];
-      });
-  
-      const result = await productRepository.save(product);
-      return res.json(result);
-      
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: 'error to update product' });
-    }
-  }
+      product[key] = req.body[key];
+    });
 
-  async deleteProduct(req: Request, res: Response): Promise<Response> {
-    const productRepository = AppDataSource.getRepository(Product);
-    const result = await productRepository.delete(req.params.id);
-    if (result.affected === 0) {
-      return res.status(404).json({ message: 'Product not found' });
-    }
-    return res.status(204).send();
+    const result = await productRepository.save(product);
+    return res.json(result);
+
+  } catch(error) {
+    console.error(error);
+    return res.status(500).json({ error: 'error to update product' });
+  }
+}
+
+  async deleteProduct(req: Request, res: Response): Promise < Response > {
+  const productRepository = AppDataSource.getRepository(Product);
+  const result = await productRepository.delete(req.params.id);
+  if(result.affected === 0) {
+  return res.status(404).json({ message: 'Product not found' });
+}
+return res.status(204).send();
   }
 }
