@@ -4,7 +4,8 @@ import bodyParser from 'body-parser';
 import productRoutes from './routes/ProductRoutes';
 import sizeInfoRoutes from './routes/SizeRoutes';
 import categoryRoutes from './routes/CategoryRoutes';
-import additionalRoutes from './routes/additionalRoutes';
+import additionalRoutes from "./routes/AdditionalRoutes";
+
 
 AppDataSource.initialize().then(async () => {
 

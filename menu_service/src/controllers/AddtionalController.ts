@@ -38,6 +38,27 @@ export class AdditionalController {
     return res.json(result);
   }
 
+  public async patchAdditional(req: Request, res: Response): Promise<Response> {
+    try {
+      const additionalRepository = AppDataSource.getRepository(Additional);
+      const additional = await additionalRepository.findOne({ where: { id: Number(req.params.id) } });
+
+      if (!additional) {
+        return res.status(404).json({ message: 'Category not found' });
+      }
+
+      Object.keys(req.body).forEach((key) => {
+        additional[key] = req.body[key];
+      });
+
+      const result = await additionalRepository.save(additional);
+      return res.json(result);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Erro ao atualizar additional' });
+    }
+  }
+
   public async deleteAdditional(req: Request, res: Response): Promise<Response> {
     const additionalRepository = AppDataSource.getRepository(Additional);
     const result = await additionalRepository.delete(Number(req.params.id));

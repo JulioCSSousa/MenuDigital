@@ -14,6 +14,13 @@ import {
     @PrimaryGeneratedColumn()
     id!: number;
   
+    @ManyToOne(() => Product, product => product.id, { nullable: true, onDelete: 'CASCADE' })
+    @JoinColumn()
+    product?: Product | null;
+  
+    @Column({ nullable: true })
+    productId?: string | null; 
+    
     @Column({ type: 'boolean', default: false })
     combineAmount!: boolean;
   
@@ -28,12 +35,6 @@ import {
         max: number | null;
       }[];
     }[];
-  
-    @ManyToOne(() => Product, product => product.id, { nullable: true, onDelete: 'CASCADE' })
-    @JoinColumn()
-    product?: Product | null;
-  
-    @Column({ nullable: true })
-    productId?: string | null;  
+   
   }
   

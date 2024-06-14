@@ -20,7 +20,7 @@ export class SizeInfoController {
     const sizeInfoRepository = AppDataSource.getRepository(SizeInfo);
     const sizeInfo = await sizeInfoRepository.findOne({
       where: { itemSizeId: Number(req.params.id) },
-      relations: ["product"]
+      relations: ["size"]
     });
     if (!sizeInfo) {
       return res.status(404).json({ message: 'SizeInfo not found' });
@@ -37,6 +37,28 @@ export class SizeInfoController {
     sizeInfoRepository.merge(sizeInfo, req.body);
     const result = await sizeInfoRepository.save(sizeInfo);
     return res.json(result);
+  }
+
+  public async patchSize(req: Request, res: Response): Promise<Response> {
+    try {
+      const sizeRepository = AppDataSource.getRepository(SizeInfo);
+      const size = await sizeRepository.findOne({ where: { itemSizeId: Number(req.params.id) }, 
+        relations: ["product"] });
+
+      if (!size) {
+        return res.status(404).json({ message: 'size not found' });
+      }
+
+      Object.keys(req.body).forEach((key) => {
+        size[key] = req.body[key];
+      });
+  
+      const result = await sizeRepository.save(size);
+      return res.json(result);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'update error' });
+    }
   }
 
   public async deleteSize(req: Request, res: Response): Promise<Response> {
