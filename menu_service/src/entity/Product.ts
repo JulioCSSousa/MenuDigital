@@ -21,7 +21,7 @@ export class Product {
   isSale!: boolean;
 
   @Column({ length: 300 })
-  image: string;
+  image?: string | null;
 
   @OneToMany(() => SizeInfo, (size) => size.product, { cascade: true })
   @JoinColumn()
