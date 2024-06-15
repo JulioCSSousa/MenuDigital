@@ -6,7 +6,10 @@ Esta API fornece endpoints para gerenciar produtos, categorias, adicionais e inf
 
 ## Endpoints
 
-### Produtos (`/api/product`)
+### Produtos (`/api/product?page=1&limit=10`)
+### Category (`/api/category`)
+### Size (`/api/size`)
+### Additional (`/api/additional`)
 
 #### Listar Produtos
 
