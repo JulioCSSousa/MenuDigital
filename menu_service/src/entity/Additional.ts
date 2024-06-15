@@ -25,7 +25,7 @@ import {
     combineAmount!: boolean;
   
     @Column({ type: 'json', nullable: true })
-    combineWith!: {
+    combineWith?: {
       type: string;
       options: string;
       mainMenu: boolean;

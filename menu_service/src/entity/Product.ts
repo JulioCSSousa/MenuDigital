@@ -11,16 +11,16 @@ export class Product {
   @Column({ length: 100 })
   name!: string;
 
-  @Column({ length: 100 })
-  flavor!: string;
+  @Column({ length: 100, nullable: true })
+  flavor?: string | null;
 
-  @Column({ length: 500 })
-  description: string;
+  @Column({ length: 500, nullable: true})
+  description?: string | null;
 
   @Column()
   isSale!: boolean;
 
-  @Column({ length: 300 })
+  @Column({ length: 300, nullable: true })
   image?: string | null;
 
   @OneToMany(() => SizeInfo, (size) => size.product, { cascade: true })
@@ -29,9 +29,9 @@ export class Product {
 
   @ManyToOne(() => Category, (category) => category.product, { cascade: true })
   @JoinColumn({name: 'categoryId'})
-  category: Category;
+  category?: Category;
 
-  @OneToMany(() => Additional, (additional) => additional.product, { cascade: true })
+  @OneToMany(() => Additional, (additional) => additional.product, { cascade: true, nullable: true })
   @JoinColumn()
   additional?: Additional[] | null;
 }

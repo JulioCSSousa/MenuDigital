@@ -10,7 +10,7 @@ export class SizeInfo {
   size!: string | null;
 
   @Column()
-  observation!: string | null;
+  observation?: string | null;
 
   @Column('float')
   realAmount: number;
@@ -20,5 +20,5 @@ export class SizeInfo {
 
   @ManyToOne(() => Product, (product) => product.id)
   @JoinColumn({ name: 'productId' })
-  product!: Product | null;
+  product?: Product | null;
 }
