@@ -106,32 +106,32 @@ Cria um novo produto.
 
 ### Parâmetros
 
-- `name` (string, obrigatório): Nome do produto.
-- `flavor` (string, obrigatório): Sabor do produto.
+- `name` (string): Nome do produto.
+- `flavor` (string): Sabor do produto.
 - `description` (string, opcional): Descrição do produto.
-- `isSale` (boolean, obrigatório): Se o produto está em promoção.
-- `image` (string, obrigatório): URL da imagem do produto.
-- `size` (array, obrigatório): Lista de tamanhos do produto com seus detalhes.
-  - `itemSizeId` (integer, obrigatório): ID do tamanho do item.
-  - `size` (string, obrigatório): Tamanho do item (por exemplo, "pequena", "média", "grande").
+- `isSale` (boolean): Se o produto está em promoção.
+- `image` (string): URL da imagem do produto.
+- `size` (array): Lista de tamanhos do produto com seus detalhes.
+  - `itemSizeId` (integer): ID do tamanho do item.
+  - `size` (string): Tamanho do item (por exemplo, "pequena", "média", "grande").
   - `observation` (string, opcional): Observações sobre o tamanho do item.
-  - `realAmount` (float, obrigatório): Preço real do item.
-  - `previewsAmount` (float, obrigatório): Preço anterior do item.
-- `category` (object, obrigatório): Categoria do produto.
-  - `id` (integer, obrigatório): ID da categoria.
-  - `name` (string, obrigatório): Nome da categoria.
-- `additional` (array, opcional): Lista de adicionais do produto.
-  - `id` (integer, obrigatório): ID do adicional.
-  - `productId` (string, obrigatório): ID do produto ao qual o adicional está associado.
-  - `combineAmount` (boolean, obrigatório): Se os valores devem ser combinados.
-  - `combineWith` (object, obrigatório): Detalhes de combinação.
-    - `type` (string, obrigatório): Tipo de item com o qual pode ser combinado.
+  - `realAmount` (float): Preço real do item.
+  - `previewsAmount` (float): Preço anterior do item.
+- `category` (object): Categoria do produto.
+  - `id` (integer): ID da categoria.
+  - `name` (string): Nome da categoria.
+- `additional` (array): Lista de adicionais do produto.
+  - `id` (integer): ID do adicional.
+  - `productId` (string): ID do produto ao qual o adicional está associado.
+  - `combineAmount` (boolean): Se os valores devem ser combinados.
+  - `combineWith` (object): Detalhes de combinação.
+    - `type` (string): Tipo de item com o qual pode ser combinado.
     - `options` (string, opcional): Opções de combinação.
-    - `mainMenu` (boolean, obrigatório): Se está no menu principal.
-    - `sizeRestriction` (object, obrigatório): Restrições de tamanho.
-      - `max` (integer, obrigatório): Quantidade máxima.
-      - `min` (integer, obrigatório): Quantidade mínima.
-      - `size` (string, obrigatório): Tamanho permitido.
+    - `mainMenu` (boolean): Se está no menu principal.
+    - `sizeRestriction` (object): Restrições de tamanho.
+      - `max` (integer): Quantidade máxima.
+      - `min` (integer): Quantidade mínima.
+      - `size` (string): Tamanho permitido.
 
 ### Corpo da Requisição
 
