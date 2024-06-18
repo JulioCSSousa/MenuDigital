@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
-import { SizeInfo } from './SizeInfo';
 import { Category } from './Category';
-import { Additional } from './Additional';
+import { Combined } from './CombineD';
 
 @Entity()
 export class Product {
@@ -10,9 +9,6 @@ export class Product {
 
   @Column({ length: 100 })
   name!: string;
-
-  @Column({ length: 100, nullable: true })
-  flavor?: string | null;
 
   @Column({ length: 500, nullable: true})
   description?: string | null;
@@ -23,15 +19,28 @@ export class Product {
   @Column({ length: 300, nullable: true })
   image?: string | null;
 
-  @OneToMany(() => SizeInfo, (size) => size.product, { cascade: true })
-  @JoinColumn()
-  size: SizeInfo[];
+  @Column({nullable: true})
+  extraIndex?: number |null
 
+  @Column({nullable: true})
+  observation?: string | null
+
+  @Column()
+  amount?: number | null
+
+  @Column({nullable: true})
+  previewsAmount?: number |null
+
+  @Column()
+  combineAmount: boolean | false
+
+  
   @ManyToOne(() => Category, (category) => category.product, { cascade: true })
   @JoinColumn({name: 'categoryId'})
   category?: Category;
 
-  @OneToMany(() => Additional, (additional) => additional.product, { cascade: true, nullable: true })
+  @OneToMany(() => Combined, (combined) => combined.product, { cascade: true, nullable: true })
   @JoinColumn()
-  additional?: Additional[] | null;
+  combined?: Combined[] | null;
 }
+

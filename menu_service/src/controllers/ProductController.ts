@@ -19,7 +19,7 @@ export class ProductController {
     const offset = (page - 1) * limit;
     
     const [product, total] = await productRepository.findAndCount({
-      relations: ["category", "size", "additional"],
+      relations: ["category", "combined"],
       skip: offset,
       take: limit
     });
@@ -41,7 +41,7 @@ export class ProductController {
   const productRepository = AppDataSource.getRepository(Product);
   const product = await productRepository.findOne({
     where: { id: req.params.id },
-    relations: ["category", "size", "additional"]
+    relations: ["category", "combined"]
   });
   if(!product) {
     return res.status(404).json({ message: 'Product not found' });
@@ -54,7 +54,7 @@ export class ProductController {
     const productRepository = AppDataSource.getRepository(Product);
   const product = await productRepository.find({
     where: { category: { id: categoryId } },
-    relations: ["category", "size", "additional"]
+    relations: ["category", "combined"]
   });
   if(!product) {
     return res.status(404).json({ message: 'Product not found' });
@@ -76,7 +76,7 @@ export class ProductController {
   public async patchProduct(req: Request, res: Response): Promise < Response > {
   try {
     const productRepository = AppDataSource.getRepository(Product);
-    const product = await productRepository.findOne({ where: { id: req.params.id }, relations: ["category", "size", "additional"] });
+    const product = await productRepository.findOne({ where: { id: req.params.id }, relations: ["category", "combined"] });
 
     if(!product) {
       return res.status(404).json({ message: 'Product not found' });
