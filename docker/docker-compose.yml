@@ -1,0 +1,99 @@
+
+services:
+  menu-delivery-service:
+    build:
+      context: ../ms-menu-digital/menu-delivery-service
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ../ms-menu-digital/menu-delivery-service:/usr/src/app
+    env_file:
+      - ../.env
+    networks:
+      - my-network
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: environment
+      DB_HOST: db
+      DB_PORT: 3306
+    command: npm run start 
+
+  store-tenant-service:
+    build:
+      context: ../ms-menu-digital/store-tenant-service
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    volumes:
+      - ../ms-menu-digital/store-tenant-service:/usr/src/app
+    env_file:
+      - ../.env
+    networks:
+      - my-network
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: environment
+      DB_HOST: db
+      DB_PORT: 3306
+    command: npm run start 
+
+  user-service:
+    build:
+      context: ../ms-menu-digital/user-service
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    volumes:
+      - ../ms-menu-digital/user-service:/usr/src/app
+    env_file:
+      - ../.env
+    networks:
+      - my-network
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: environment
+      DB_HOST: db
+      DB_PORT: 3306
+    command: npm run start 
+
+  api-gateway:
+    build:
+      context: ../api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../api-gateway:/usr/src/app
+    env_file:
+      - ../.env
+    networks:
+      - my-network
+    depends_on:
+      - menu-delivery-service
+      - store-tenant-service
+      - user-service
+    environment:
+      NODE_ENV: environment
+      DB_HOST: db
+    command: npm run start 
+
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 159753
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+
+networks:
+  my-network:
+    driver: bridge

@@ -31,13 +31,13 @@
       "yup": "^1.4.0"
    },
    "scripts": {
+      "start": "npm run start --workspace=api-gateway, npm run start --workspace=ms-menu-digital/menu-delivery-service, npm run start --workspace=ms-menu-digital/store-tenant-service, pm run start --workspace=ms-menu-digital/user-service, npm run build --workspace=api-gateway",
       "start:api-gateway": "npm run start --workspace=api-gateway",
       "start:menu-delivery-service": "npm run start --workspace=ms-menu-digital/menu-delivery-service",
       "start:store-tenant-service": "npm run start --workspace=ms-menu-digital/store-tenant-service",
       "start:user-service": "npm run start --workspace=ms-menu-digital/user-service",
       "build:api-gateway": "npm run build --workspace=api-gateway",
       "build:menu-delivery-service": "npm run build --workspace=ms-menu-digital/menu-delivery-service",
-      "build:store-tenant-service": "npm run build --workspace=ms-menu-digital/store-tenant-service",
       "build:user-service": "npm run build --workspace=ms-menu-digital/user-service"
    }
 }

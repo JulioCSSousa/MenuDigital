@@ -25,6 +25,7 @@
    },
    "scripts": {
       "dev:server": "ts-node-dev -r tsconfig-paths/register  --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+      "build": "tsc",
       "start": "ts-node src/index.ts",
       "dev": "nodemon src/index.ts",
       "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
