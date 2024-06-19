@@ -3,6 +3,13 @@
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "type": "commonjs",
+   "private": true,
+   "workspaces": [
+      "api-gateway",
+      "ms-menu-digital/menu-delivery-service",
+      "ms-menu-digital/store-tenant-service",
+      "ms-menu-digital/user-service"
+   ],
    "devDependencies": {
       "@types/express": "^4.17.21",
       "@types/node": "^16.18.98",
@@ -24,12 +31,13 @@
       "yup": "^1.4.0"
    },
    "scripts": {
-      "dev:server": "ts-node-dev -r tsconfig-paths/register  --inspect --transpile-only --ignore-watch node_modules src/server.ts",
-      "start": "ts-node menu_service/src/index.ts",
-      "dev": "nodemon src/index.ts",
-      "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-      "migration:generate": "npm run typeorm migration:generate ./menu_service/src/migration",
-      "migration:run": "npm run typeorm migration:run",
-      "migration:revert": "npm run typeorm migration:revert"
+      "start:api-gateway": "npm run start --workspace=api-gateway",
+      "start:menu-delivery-service": "npm run start --workspace=ms-menu-digital/menu-delivery-service",
+      "start:store-tenant-service": "npm run start --workspace=ms-menu-digital/store-tenant-service",
+      "start:user-service": "npm run start --workspace=ms-menu-digital/user-service",
+      "build:api-gateway": "npm run build --workspace=api-gateway",
+      "build:menu-delivery-service": "npm run build --workspace=ms-menu-digital/menu-delivery-service",
+      "build:store-tenant-service": "npm run build --workspace=ms-menu-digital/store-tenant-service",
+      "build:user-service": "npm run build --workspace=ms-menu-digital/user-service"
    }
 }

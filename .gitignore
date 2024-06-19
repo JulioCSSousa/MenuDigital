@@ -1,8 +1,6 @@
 .idea/
 .vscode/
 .env
-docker-compose.prod.yml
-docker-compose.yml
 node_modules/
 build/
 tmp/
