@@ -5,7 +5,7 @@ export const BodyValidation: yup.Schema = yup.object().shape({
     registerId: yup.string()
     .matches(/^\d{11}$|^\d{14}$/, 'RegisterId needs to be a CPF(11 digits) or CNPJ(14 digits)')
     .required(),
-    name: yup.string(),
+    name: yup.string().required("Name is required"),
     description: yup.string(),
     category: yup.array(),
     imageUrl: yup.string(),

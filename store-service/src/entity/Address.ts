@@ -1,10 +1,16 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Store } from "./Store";
+import { Tenant } from "./Tenant";
 
 @Entity()
 export class Address {
 
-    @PrimaryColumn('uuid')
+    @PrimaryGeneratedColumn('uuid')
     addressId: string;
+
+    @OneToOne(() => Store, (store) => store.address)
+    @JoinColumn({name: 'storeId'})
+    store: Store
 
     @Column({ length: 100, nullable: true })
     street?: string;
@@ -17,6 +23,10 @@ export class Address {
 
     @Column({ nullable: true })
     complement?: string;
+
+    @ManyToOne(() => Tenant, (tenant) => tenant.tenantId, {nullable: true })
+    @JoinColumn({name: 'tenantId'})
+    tenant?: Tenant
 
 
 }

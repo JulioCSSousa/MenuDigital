@@ -1,14 +1,20 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Tenant } from "./Tenant";
+import { Address } from "./Address";
 
 
 @Entity()
 export class Store {
-    @PrimaryColumn('uuid')
+    @PrimaryGeneratedColumn('uuid')
     storeId: string;
 
-    @Column()
-    registerId: string;
+    @ManyToOne(() => Tenant, (tenant) => tenant.stores)
+    @JoinColumn({name: 'tenantId'})
+    tenant: Tenant
+
+    @OneToOne(() => Address, (address) => address.addressId)
+    @JoinColumn({name: 'addressId'})
+    address: Address
 
     @Column({nullable: true})
     storePhone?: string;
@@ -19,12 +25,8 @@ export class Store {
     @Column({nullable: true})
     workTime?: string;
 
-    @ManyToOne(() => Tenant, (tenant) => tenant.stores)
-    @JoinColumn()
-    tenant: Tenant
-
-    @Column({ length: 100 })
-    categoryId: string;
+    @Column({ length: 100, nullable: true })
+    categoryId?: string;
 
     @Column({ length: 800, nullable: true })
     description?: string;
@@ -38,8 +40,8 @@ export class Store {
         secundary: string
     };
 
-    @Column({ length: 300 })
-    logo: string;
+    @Column({ length: 300, nullable: true })
+    logo?: string;
 
 }
 
