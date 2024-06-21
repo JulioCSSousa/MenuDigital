@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../database';
-import { Address } from '../entity';
+import { Address } from '../entity/Address';
 
 export class AddressController {
     public async createAddress(req: Request, res: Response): Promise<Response> {
@@ -21,7 +21,7 @@ export class AddressController {
     public async getAddressById(req: Request, res: Response): Promise<Response> {
 
         const addressRepository = AppDataSource.getRepository(Address);
-        let address = await addressRepository.findOne({ where: Number({ addressId: req.params.addressId }) });
+        let address = await addressRepository.findOne({ where: { addressId: req.params.addressId } });
         if (!address) {
             return res.status(404).json({ message: 'store not found' });
         }
@@ -30,7 +30,7 @@ export class AddressController {
 
     public async updateAddress(req: Request, res: Response): Promise<Response> {
         const addressRepository = AppDataSource.getRepository(Address);
-        let address = await addressRepository.findOne({ where: Number({ addressId: req.params.addressId }) });
+        let address = await addressRepository.findOne({ where: { addressId: req.params.addressId } });
         if (!address) {
             return res.status(404).json({ message: 'address not found' });
         }
@@ -42,7 +42,7 @@ export class AddressController {
     public async patchAddress(req: Request, res: Response): Promise<Response> {
         try {
             const addressRepository = AppDataSource.getRepository(Address);
-            const address = await addressRepository.findOne({ where: Number({ addressId: req.params.addressId }) });
+            const address = await addressRepository.findOne({ where: { addressId: req.params.addressId } });
 
             if (!address) {
                 return res.status(404).json({ message: 'address not found' });
@@ -52,7 +52,7 @@ export class AddressController {
                 address[key] = req.body[key];
             });
 
-            const result = await addressRepository.save(Address);
+            const result = await addressRepository.save(address);
             return res.json(result);
         } catch (error) {
             console.error(error);

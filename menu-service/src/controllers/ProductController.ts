@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../../database/data-source';
-import { Product } from '../../entity';
+import { AppDataSource } from '../database/data-source';
+import { Product } from '../entity/Product';
 
 
 

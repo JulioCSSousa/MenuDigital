@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../database';
-import { Store } from '../entity';
+import { Store } from '../entity/Store';
 import * as yup from "yup";
 import { BodyValidation } from '../shared/middleware/storeValidation';
 import { StatusCodes } from 'http-status-codes';

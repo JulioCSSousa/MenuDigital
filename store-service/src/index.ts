@@ -2,7 +2,6 @@ import { AppDataSource } from "./database/data-source"
 import express from 'express';
 import bodyParser from 'body-parser';
 import storeRoutes from "./shared/routes/StoreRoutes";
-import contactRoutes from "./shared/routes/ContactRoutes";
 import addressRoutes from "./shared/routes/AddressRoutes";
 import tenantRoutes from "./shared/routes/TenantRoutes";
 import * as dotenv from "dotenv"
@@ -25,7 +24,6 @@ AppDataSource.initialize().then(async () => {
     server.use(express.json());
 
     server.use(storeRoutes);
-    server.use(contactRoutes);
     server.use(addressRoutes);
     server.use(tenantRoutes);
     

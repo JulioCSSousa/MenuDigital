@@ -1,10 +1,9 @@
 import { AppDataSource } from "./database/data-source"
 import express from 'express';
 import bodyParser from 'body-parser';
-import productRoutes from './shared/routes/menu-routes/ProductRoutes';
-import categoryRoutes from './shared/routes/menu-routes/CategoryRoutes';
-import additionalRoutes from "./shared/routes/menu-routes/CombinedRoutes";
-import storeRoutes from "./shared/routes/store-routes/StoreRoutes";
+import productRoutes from './shared/routes/ProductRoutes';
+import categoryRoutes from './shared/routes/CategoryRoutes';
+import additionalRoutes from "./shared/routes/CombinedRoutes";
 import * as dotenv from "dotenv"
 
 
@@ -26,6 +25,5 @@ AppDataSource.initialize().then(async () => {
     server.use(productRoutes);
     server.use(categoryRoutes);
     server.use(additionalRoutes);
-    server.use(storeRoutes);
 
 });

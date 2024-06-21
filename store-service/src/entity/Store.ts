@@ -1,6 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from "typeorm";
 import { Tenant } from "./Tenant";
-import { Contact } from "./Contact";
 
 
 @Entity()
@@ -11,8 +10,14 @@ export class Store {
     @Column()
     registerId: string;
 
+    @Column({nullable: true})
+    storePhone?: string;
+
     @Column({ length: 100 })
-    name: string;
+    storeName: string;
+
+    @Column({nullable: true})
+    workTime?: string;
 
     @ManyToOne(() => Tenant, (tenant) => tenant.stores)
     @JoinColumn()
@@ -36,8 +41,5 @@ export class Store {
     @Column({ length: 300 })
     logo: string;
 
-    @OneToOne(() => Contact, (contacts) => contacts)
-    @JoinColumn()
-    contacts: Contact
 }
 

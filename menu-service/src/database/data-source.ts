@@ -1,8 +1,9 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
 import * as dotenv from "dotenv"
-import { Category, Combined, Product, Store } from "../entity";
-import { HasWalkedCache } from "glob/dist/commonjs/processor";
+import { Category} from "../entity/Category";
+import {Product} from "../entity/Product"
+import {Combined} from "../entity/Combined"
 
 
 
@@ -16,8 +17,8 @@ export const AppDataSource = new DataSource({
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE,
     synchronize: true,
-    logging: true,
-    entities: [Product,Combined, Category, Store],
+    logging: false,
+    entities: [Product,Combined, Category],
     migrations: ["./menu_service/src/migrations/*.ts"],
     subscribers: [],
 })

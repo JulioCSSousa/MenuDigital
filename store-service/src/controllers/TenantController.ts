@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../database';
-import { Tenant } from '../entity';
-import { register } from 'tsconfig-paths';
+import { Tenant } from '../entity/Tenant';
 
 
 export class TenantController {
@@ -65,7 +64,7 @@ export class TenantController {
                 Tenant[key] = req.body[key];
             });
 
-            const result = await tenantRepository.save(Tenant);
+            const result = await tenantRepository.save(tenant);
             return res.json(result);
         } catch (error) {
             console.error(error);

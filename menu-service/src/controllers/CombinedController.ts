@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../../database/data-source';
-import { Combined } from '../../entity';
+import { AppDataSource } from '../database/data-source';
+import { Combined } from '../entity/Combined';
 
 export class CombinedController {
   public async createcombined(req: Request, res: Response): Promise<Response> {
