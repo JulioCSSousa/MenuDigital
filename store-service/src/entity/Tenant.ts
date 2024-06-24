@@ -7,7 +7,7 @@ export class Tenant {
     
     @PrimaryGeneratedColumn('uuid')
     tenantId: string;
- 
+    
     @Column()
     registerId: string;
 

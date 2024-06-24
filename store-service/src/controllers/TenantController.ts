@@ -1,25 +1,12 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../database';
 import { Tenant } from '../entity/Tenant';
-import { tenantBodyValidation } from '../shared/middleware/tenantValidation';
+import { tenantValidation } from '../shared/middleware/tenantValidation';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from "yup";
 
 export class TenantController {
     public async createTenant(req: Request, res: Response): Promise<Response> {
-
-        try {
-            await tenantBodyValidation.validate(req.body, { abortEarly: true })
-        } catch (exceptions) {
-
-            const yupError = exceptions as yup.ValidationError
-            return res.status(StatusCodes.BAD_REQUEST).json({
-                errors: {
-                    default: yupError.message,
-                }
-            }
-            )
-        };
 
         const tenantRepository = AppDataSource.getRepository(Tenant);
         const newtenant = tenantRepository.create(req.body);

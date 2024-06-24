@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { TenantController } from '../../controllers/TenantController';
-
+import { tenantValidation } from '../middleware/tenantValidation';
 
 const router = Router();
 
 const tenantController = new TenantController();
 
-router.post('/api/tenants', tenantController.createTenant.bind(tenantController));
+router.post('/api/tenants', tenantValidation, tenantController.createTenant.bind(tenantController));
 router.get('/api/tenants', tenantController.getTenants.bind(tenantController));
 router.get('/api/tenants/:id', tenantController.getTenantByRegister.bind(tenantController));
 router.get('/api/tenants/:id', tenantController.getTenantById.bind(tenantController));

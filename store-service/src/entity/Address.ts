@@ -5,12 +5,13 @@ import { Tenant } from "./Tenant";
 @Entity()
 export class Address {
 
+    
     @PrimaryGeneratedColumn('uuid')
     addressId: string;
 
-    @OneToOne(() => Store, (store) => store.address)
+    @OneToOne(() => Store, (store) => store.address, {nullable: true})
     @JoinColumn({name: 'storeId'})
-    store: Store
+    store?: Store
 
     @Column({ length: 100, nullable: true })
     street?: string;

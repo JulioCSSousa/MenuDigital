@@ -2,24 +2,11 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../database';
 import { Store } from '../entity/Store';
 import * as yup from "yup";
-import { BodyValidation } from '../shared/middleware/storeValidation';
+
 import { StatusCodes } from 'http-status-codes';
 
 export class StoreController {
     public async createStore(req: Request, res: Response): Promise<Response> {
-
-        try {
-            await BodyValidation.validate(req.body, { abortEarly: true })
-        } catch (exceptions) {
-
-            const yupError = exceptions as yup.ValidationError
-            return res.status(StatusCodes.BAD_REQUEST).json({
-                errors: {
-                    default: yupError.message,
-                }
-            }
-            )
-        };
 
         const storeRepository = AppDataSource.getRepository(Store);
         const newstore = storeRepository.create(req.body);
