@@ -14,14 +14,12 @@ AppDataSource.initialize().then(async () => {
     console.log("Here you can setup and run express / fastify / any other framework.");
 
     const server = express();
-    server.use(bodyParser.json());
-
+    server.get('/', (req, res) => res.status(200).json({
+        msg: "Bem-vindo à store-service"
+    }));
     const port = 3001
     server.listen(
-        port, () => console.log(`Server is running at https://localhost:${port}`)
-
-);
-    server.use(express.json());
+        port, () => console.log(`Server is running at https://localhost:${port}`));
 
     server.use(storeRoutes);
     server.use(addressRoutes);
