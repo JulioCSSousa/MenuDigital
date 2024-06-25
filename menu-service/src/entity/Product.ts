@@ -14,7 +14,7 @@ export class Product {
   description?: string | null;
 
   @Column()
-  isSale!: boolean;
+  isSale!: boolean | true;
 
   @Column({ length: 300, nullable: true })
   image?: string | null;
@@ -25,7 +25,7 @@ export class Product {
   @Column({nullable: true})
   observation?: string | null
 
-  @Column()
+  @Column({nullable: true})
   amount?: number | null
 
   @Column({nullable: true})

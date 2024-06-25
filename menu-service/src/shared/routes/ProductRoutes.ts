@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { ProductController } from '../../controllers/ProductController';
+import { productValidation } from '../middleware/productValidation';
 
 
 const router = Router();
 const productController = new ProductController();
 
-router.post('/api/product', productController.createProduct.bind(productController));
+router.post('/api/product', productValidation, productController.createProduct.bind(productController));
 router.get('/api/product', productController.getProducts.bind(productController));
 router.get('/api/product/:id', productController.getProductById.bind(productController));
 router.get('/api/product/category/:id', productController.getProductByCategory.bind(productController));

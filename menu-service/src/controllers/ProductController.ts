@@ -14,6 +14,8 @@ export class ProductController {
 
   async getProducts(req: Request, res: Response): Promise<Response> {
     const productRepository = AppDataSource.getRepository(Product);
+
+    
     const page = parseInt(req.query.page as string, 10) || 1;
     const limit = parseInt(req.query.limit as string, 10) || 10;
     const offset = (page - 1) * limit;

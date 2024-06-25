@@ -1,4 +1,3 @@
-import { exec } from "child_process";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 
@@ -8,13 +7,6 @@ export const storeSchema: yup.Schema = yup.object().shape({
     .matches(/^\d{11}$|^\d{14}$/, 'RegisterId needs to be a CPF(11 digits) or CNPJ(14 digits)')
     .required(),
     name: yup.string().required(),
-    description: yup.string().nullable(),
-    category: yup.array().nullable(),
-    imageUrl: yup.string().nullable(),
-    color: yup.object({
-        primary: yup.string().nullable(),
-        secundary: yup.string().nullable(),
-    }).nullable()
 });
 
 export async function storeValidation(request, response, next){

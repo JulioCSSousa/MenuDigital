@@ -13,8 +13,8 @@ export class Category {
   label?: string;
   
 
-  @OneToMany(() => Product, (product) => product.category)
+  @OneToMany(() => Product, (product) => product.category, {nullable: true})
   @JoinColumn({name: "productId"})
-  product!: Product[];
+  product?: Product[];
 
 }

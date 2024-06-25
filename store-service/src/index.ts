@@ -16,9 +16,9 @@ AppDataSource.initialize().then(async () => {
     const server = express();
     server.use(bodyParser.json());
 
-
+    const port = 3001
     server.listen(
-        3000, () => console.log(`Server is running at https://localhost:${3000}`)
+        port, () => console.log(`Server is running at https://localhost:${port}`)
 
 );
     server.use(express.json());

@@ -15,12 +15,33 @@ export class StoreController {
 
     }
 
-    public async getStores(req: Request, res: Response): Promise<Response> {
+    async getStores(req: Request, res: Response): Promise<Response> {
         const storeRepository = AppDataSource.getRepository(Store);
-        const store = await storeRepository.find();
-        return res.json(store);
-    }
-
+    
+        
+        const page = parseInt(req.query.page as string, 10) || 1;
+        const limit = parseInt(req.query.limit as string, 10) || 10;
+        const offset = (page - 1) * limit;
+        
+        const [store, total] = await storeRepository.findAndCount({
+          relations: ["tenant", "address"],
+          skip: offset,
+          take: limit
+        });
+    
+        const totalPages = Math.ceil(total / limit);
+    
+        return res.json({
+          data: store,
+          meta: {
+            total,
+            page,
+            limit,
+            totalPages
+          }
+        });
+      }
+    
     public async getStoreById(req: Request, res: Response): Promise<Response> {
 
         const storeRepository = AppDataSource.getRepository(Store);

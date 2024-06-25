@@ -14,13 +14,13 @@ import {
     @PrimaryGeneratedColumn('uuid')
     id!: string;
     
-    @Column()
-    type: string;
+    @Column({nullable: true})
+    type?: string;
 
-    @Column()
+    @Column({nullable: true})
     options: string;
 
-    @Column()
+    @Column({nullable: true})
     mainMenu: boolean;
 
     @ManyToOne(() => Product, product => product.id, { nullable: true, onDelete: 'CASCADE' })
