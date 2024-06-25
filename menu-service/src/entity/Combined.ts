@@ -1,13 +1,15 @@
-// src/entity/AdictionalItem.ts
+
 import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
     ManyToOne,
+    OneToOne,
     JoinColumn,
   } from 'typeorm';
 
   import { Product } from './Product';
+  import { Category } from './Category';
   
   @Entity()
   export class Combined {
@@ -15,26 +17,20 @@ import {
     id!: string;
     
     @Column({nullable: true})
-    type?: string;
-
-    @Column({nullable: true})
-    options: string;
+    type: string;
 
     @Column({nullable: true})
     mainMenu: boolean;
 
     @ManyToOne(() => Product, product => product.id, { nullable: true, onDelete: 'CASCADE' })
     @JoinColumn()
-    product?: Product | null;
-  
-    @Column({ nullable: true })
-    productId?: string | null; 
+    product?: Product;
   
     @Column({ type: 'json', nullable: true })
       sizeRestriction?: {
-        size: string | null;
-        min: number | null;
-        max: number | null;
+        size: string;
+        min: number;
+        max: number;
       }[];
   }
   

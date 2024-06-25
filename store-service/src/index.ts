@@ -5,6 +5,7 @@ import storeRoutes from "./shared/routes/StoreRoutes";
 import addressRoutes from "./shared/routes/AddressRoutes";
 import tenantRoutes from "./shared/routes/TenantRoutes";
 import * as dotenv from "dotenv"
+import { json } from "node:stream/consumers";
 
 
 dotenv.config();
@@ -20,7 +21,8 @@ AppDataSource.initialize().then(async () => {
     const port = 3001
     server.listen(
         port, () => console.log(`Server is running at https://localhost:${port}`));
-
+    
+    server.use(bodyParser.json())
     server.use(storeRoutes);
     server.use(addressRoutes);
     server.use(tenantRoutes);

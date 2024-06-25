@@ -8,7 +8,7 @@ export class Product {
   id!: string;
 
   @Column({ length: 100 })
-  name!: string;
+  name: string;
 
   @Column({ length: 500, nullable: true})
   description?: string | null;
@@ -35,9 +35,9 @@ export class Product {
   combineAmount: boolean | false
 
   
-  @ManyToOne(() => Category, (category) => category.product, { cascade: true })
+  @ManyToOne(() => Category, (category) => category.product)
   @JoinColumn({name: 'category'})
-  category?: Category;
+  category: Category;
 
   @OneToMany(() => Combined, (combined) => combined.product, { cascade: true, nullable: true })
   @JoinColumn()

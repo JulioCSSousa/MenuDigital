@@ -5,8 +5,6 @@ import { Category} from "../entity/Category";
 import {Product} from "../entity/Product"
 import {Combined} from "../entity/Combined"
 
-
-
 dotenv.config();
 
 export const AppDataSource = new DataSource({
@@ -17,9 +15,8 @@ export const AppDataSource = new DataSource({
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE,
     synchronize: true,
-    logging: false,
+    logging: true,
     entities: [Product,Combined, Category],
-    migrations: ["./menu_service/src/migrations/*.ts"],
-    subscribers: [],
+    migrations: [__dirname + '/../../typeorm-migrations/*.{ts,js}']
 })
 

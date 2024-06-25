@@ -17,14 +17,16 @@ export class TenantController {
 
     public async getTenants(req: Request, res: Response): Promise<Response> {
         const tenantRepository = AppDataSource.getRepository(Tenant);
-        const categories = await tenantRepository.find();
-        return res.json(categories);
+        const tenants = await tenantRepository.find();
+        return res.json(tenants);
     }
 
     public async getTenantByRegister(req: Request, res: Response): Promise<Response> {
 
         const tenantRepository = AppDataSource.getRepository(Tenant);
-        let tenant = await tenantRepository.findOne({ where: { registerId: req.params.registerId } });
+        const tenant = await tenantRepository.findOne({
+             where: { registerId: req.params.tenantId }
+            });
         if (!tenant) {
             return res.status(404).json({ message: 'Tenant not found' });
         }
@@ -34,7 +36,10 @@ export class TenantController {
     public async getTenantById(req: Request, res: Response): Promise<Response> {
 
         const tenantRepository = AppDataSource.getRepository(Tenant);
-        let tenant = await tenantRepository.findOne({ where: { tenantId: req.params.tenantId } });
+        const tenant = await tenantRepository.findOne({
+             where: { tenantId: req.params.id }
+            });
+        console.log(tenant)
         if (!tenant) {
             return res.status(404).json({ message: 'Tenant not found' });
         }
@@ -43,7 +48,7 @@ export class TenantController {
 
     public async updateTenant(req: Request, res: Response): Promise<Response> {
         const tenantRepository = AppDataSource.getRepository(Tenant);
-        let tenant = await tenantRepository.findOne({ where: { tenantId: req.params.tenantId } });
+        let tenant = await tenantRepository.findOne({ where: { tenantId: req.params.id } });
         if (!tenant) {
             return res.status(404).json({ message: 'Tenant not found' });
         }
@@ -55,7 +60,7 @@ export class TenantController {
     public async patchTenant(req: Request, res: Response): Promise<Response> {
         try {
             const tenantRepository = AppDataSource.getRepository(Tenant);
-            const tenant = await tenantRepository.findOne({ where: { tenantId: req.params.tenantId } });
+            const tenant = await tenantRepository.findOne({ where: { tenantId: req.params.id } });
 
             if (!tenant) {
                 return res.status(404).json({ message: 'Tenant not found' });
@@ -75,10 +80,10 @@ export class TenantController {
 
     public async deleteTenant(req: Request, res: Response): Promise<Response> {
         const tenantRepository = AppDataSource.getRepository(Tenant);
-        const result = await tenantRepository.delete(req.params.tenantId);
+        const result = await tenantRepository.delete(req.params.id);
         if (result.affected === 0) {
             return res.status(404).json({ message: 'Tenant not found' });
         }
-        return res.status(204).send();
+        return res.status(204).send("Deleted");
     }
 }

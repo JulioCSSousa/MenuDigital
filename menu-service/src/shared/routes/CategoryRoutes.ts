@@ -1,12 +1,14 @@
 import { Router } from 'express';
 import { CategoryController } from '../../controllers/CategoryController';
+import { categoryValidation } from '../middleware/categoryValidation';
+
 
 
 
 const router = Router();
 const categoryController = new CategoryController();
 
-router.post('/api/category', categoryController.createCategory.bind(categoryController));
+router.post('/api/category', categoryValidation, categoryController.createCategory.bind(categoryController));
 router.get('/api/category', categoryController.getCategories.bind(categoryController));
 router.get('/api/category/:id', categoryController.getCategoryById.bind(categoryController));
 router.put('/api/category/:id', categoryController.updateCategory.bind(categoryController));

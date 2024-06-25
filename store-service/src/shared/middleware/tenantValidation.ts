@@ -1,32 +1,35 @@
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
+import { tenantDto } from "../../interfaces/dtos/tenantDto";
+import { storeSchema } from "./storeValidation";
 
-export const tenantSchema: yup.Schema = yup.object().shape({
-
+const tenantSchema: yup.Schema<tenantDto> = yup.object().shape({
     registerId: yup.string()
-    .matches(/^\d{11}$|^\d{14}$/, 'RegisterId needs to be a CPF(11 digits) or CNPJ(14 digits)')
-    .required(),
-    fullName: yup.string().required(),
-    subscription: yup.number().required(),
-    payment: yup.number().required(),
-    panValue: yup.number().required()
+        .matches(/^\d{11}$|^\d{14}$/, 'RegisterId needs to be a CPF (11 digits) or CNPJ (14 digits)')
+        .required('registerId is a required field'),
+        
+    fullName: yup.string().required('fullName is a required field'),
+    phoneNumber: yup.string().required('phoneNumber is a required field'),
+    subscription: yup.number().required('subscription is a required field'),
+    payment: yup.number().required('payment is a required field'),
+    planValue: yup.number().required('planValue is a required field'),
 });
 
 export async function tenantValidation(request, response, next){
-try {
-    await tenantSchema.validate(request.body, { abortEarly: false });
-    next()
+    console.log(request.body)
+    try {
+        await tenantSchema.validate(request.body, { abortEarly: false });
+        next()
+    } catch (error) {
+        if (error.name === 'ValidationError') {
+            const validationErrors: Record<string, string> = {};
 
-} catch (exceptions) {
-    const validationErrors = {};
-    const yupError = exceptions as yup.ValidationError;
-        yupError.inner.forEach((error) => {
-        validationErrors[error.path] = error.message;
-      });
-    return response.status(StatusCodes.BAD_REQUEST).json(
-        {
-            validationErrors
+            (error as yup.ValidationError).inner.forEach((e) => {
+                validationErrors[e.path] = e.message;
+            });
+            return response.status(StatusCodes.BAD_REQUEST).json({ validationErrors });
         }
-    )
-}
+        else throw error
+    }
+
 }

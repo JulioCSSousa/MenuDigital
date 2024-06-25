@@ -22,7 +22,8 @@ AppDataSource.initialize().then(async () => {
     const port = 3000
     server.listen(
         port, () => console.log(`Server is running at https://localhost:${port}`));
-
+        
+    server.use(bodyParser.json())
     server.use(productRoutes);
     server.use(categoryRoutes);
     server.use(additionalRoutes);

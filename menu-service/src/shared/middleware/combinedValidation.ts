@@ -1,15 +1,16 @@
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
-import { productDto } from "../../dtos/productDto";
+import { combinedDto } from "../../dtos/combinedDto";
 
-export const productSchema: yup.Schema<productDto> = yup.object().shape({
-
-    name: yup.string().required()
+export const combinedSchema: yup.Schema<combinedDto> = yup.object().shape({
+    mainMenu: yup.boolean().required(),
+    type: yup.string().required()
+    
 });
 
-export async function productValidation(request, response, next){
+export async function combinedValidation(request, response, next){
     try {
-        await productSchema.validate(request.body, { abortEarly: false });
+        await combinedSchema.validate(request.body, { abortEarly: false });
         next()
     
     } catch (exceptions) {

@@ -103,6 +103,6 @@ export class ProductController {
   if(result.affected === 0) {
   return res.status(404).json({ message: 'Product not found' });
 }
-return res.status(204).send();
+return res.status(204).send("Deleted");
   }
 }

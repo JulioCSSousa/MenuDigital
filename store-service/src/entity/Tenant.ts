@@ -6,10 +6,10 @@ import { Address } from "./Address";
 export class Tenant {
     
     @PrimaryGeneratedColumn('uuid')
-    tenantId: string;
+    tenantId!: string;
     
     @Column()
-    registerId: string;
+    registerId!: string;
 
     @Column({ length: 100 })
     fullName: string;

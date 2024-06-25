@@ -32,10 +32,6 @@
       "dev:server": "ts-node-dev -r tsconfig-paths/register  --inspect --transpile-only --ignore-watch node_modules src/server.ts",
       "build": "tsc",
       "start": "ts-node src/build/index.js",
-      "dev": "nodemon src/index.ts",
-      "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-      "migration:generate": "npm run typeorm migration:generate ./menu_service/src/migration",
-      "migration:run": "npm run typeorm migration:run",
-      "migration:revert": "npm run typeorm migration:revert"
+      "dev": "nodemon src/index.ts"
    }
 }
