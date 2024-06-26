@@ -11,7 +11,7 @@ export class StoreController {
         const newstore = storeRepository.create(req.body);
         storeRepository.save(newstore)
 
-        return res.json(newstore)
+        return res.status(201).json(newstore)
 
     }
 

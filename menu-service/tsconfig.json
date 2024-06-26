@@ -7,7 +7,7 @@
       "target": "ESNext",
       "module": "commonjs",
       "moduleResolution": "node",
-      "outDir": "./src/build",
+      "outDir": "build",
       "rootDir": "./src",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
@@ -21,7 +21,9 @@
     ],
     "exclude": [
       "node_modules",
-      "**/*.spec.ts"
+      "**/*.spec.ts",
+      "./jest.config.ts",
+      "./tests"
     ]
   
    

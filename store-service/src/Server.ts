@@ -12,7 +12,7 @@ const server = express();
 
 
 AppDataSource.initialize().then(async () => {
-    
+
     server.get('/', (req, res) => res.status(200).json({
         msg: "Bem-vindo à store-service"
     }));
@@ -21,8 +21,6 @@ AppDataSource.initialize().then(async () => {
     server.use(storeRoutes);
     server.use(addressRoutes);
     server.use(tenantRoutes);
-    
-
 
 });
 

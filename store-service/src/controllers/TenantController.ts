@@ -8,7 +8,7 @@ export class TenantController {
         const tenantRepository = AppDataSource.getRepository(Tenant);
         const newtenant = tenantRepository.create(req.body);
         tenantRepository.save(newtenant)
-        return res.json(newtenant)
+        return res.status(201).json(newtenant)
 
     }
 

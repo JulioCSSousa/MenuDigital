@@ -36,7 +36,7 @@
   "scripts": {
     "dev:server": "ts-node-dev -r tsconfig-paths/register  --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "tsc",
-    "start": "ts-node src/build/index.js",
+    "start": "ts-node build/index.js",
     "dev": "nodemon src/index.ts",
     "test": "jest"
   }
