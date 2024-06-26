@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../database';
 import { Tenant } from '../entity/Tenant';
-import { tenantValidation } from '../shared/middleware/tenantValidation';
-import { StatusCodes } from 'http-status-codes';
-import * as yup from "yup";
 
 export class TenantController {
     public async createTenant(req: Request, res: Response): Promise<Response> {
@@ -17,15 +14,35 @@ export class TenantController {
 
     public async getTenants(req: Request, res: Response): Promise<Response> {
         const tenantRepository = AppDataSource.getRepository(Tenant);
-        const tenants = await tenantRepository.find();
-        return res.json(tenants);
+
+        const page = parseInt(req.query.page as string, 10) || 1;
+        const limit = parseInt(req.query.limit as string, 10) || 10;
+        const offset = (page - 1) * limit;
+        const [tenant, total] = await tenantRepository.findAndCount({
+          relations: ["stores", "address"],
+          skip: offset,
+          take: limit
+        });
+    
+        const totalPages = Math.ceil(total / limit);
+    
+        return res.json({
+          data: tenant,
+          meta: {
+            total,
+            page,
+            limit,
+            totalPages
+          }
+        });
     }
 
     public async getTenantByRegister(req: Request, res: Response): Promise<Response> {
 
         const tenantRepository = AppDataSource.getRepository(Tenant);
         const tenant = await tenantRepository.findOne({
-             where: { registerId: req.params.tenantId }
+             where: { registerId: req.params.id },
+             relations: ["stores", "address"]
             });
         if (!tenant) {
             return res.status(404).json({ message: 'Tenant not found' });
@@ -37,7 +54,8 @@ export class TenantController {
 
         const tenantRepository = AppDataSource.getRepository(Tenant);
         const tenant = await tenantRepository.findOne({
-             where: { tenantId: req.params.id }
+             where: { tenantId: req.params.id },
+             relations: ["stores", "address"]
             });
         console.log(tenant)
         if (!tenant) {

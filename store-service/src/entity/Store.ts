@@ -8,13 +8,13 @@ export class Store {
     @PrimaryGeneratedColumn('uuid')
     storeId: string;
 
-    @ManyToOne(() => Tenant, (tenant) => tenant.stores)
+    @ManyToOne(() => Tenant, (tenantId) => tenantId.stores)
     @JoinColumn({name: 'tenantId'})
     tenant: Tenant
 
-    @OneToOne(() => Address, (address) => address.addressId)
+    @OneToOne(() => Address, (address) => address.stores, {nullable: true, cascade: true})
     @JoinColumn({name: 'addressId'})
-    address: Address
+    address?: Address
 
     @Column({nullable: true})
     storePhone?: string;

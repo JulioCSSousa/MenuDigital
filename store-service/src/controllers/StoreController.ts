@@ -45,7 +45,7 @@ export class StoreController {
     public async getStoreById(req: Request, res: Response): Promise<Response> {
 
         const storeRepository = AppDataSource.getRepository(Store);
-        let store = await storeRepository.findOne({ where: { storeId: req.params.registerId } });
+        let store = await storeRepository.findOne({ where: { storeId: req.params.id }, relations: ["address", "tenant"] });
         if (!store) {
             return res.status(404).json({ message: 'store not found' });
         }
@@ -54,7 +54,7 @@ export class StoreController {
 
     public async updateStore(req: Request, res: Response): Promise<Response> {
         const storeRepository = AppDataSource.getRepository(Store);
-        let store = await storeRepository.findOne({ where: { storeId: req.params.registerId } });
+        let store = await storeRepository.findOne({ where: { storeId: req.params.id } });
         if (!store) {
             return res.status(404).json({ message: 'store not found' });
         }
@@ -66,7 +66,7 @@ export class StoreController {
     public async patchStore(req: Request, res: Response): Promise<Response> {
         try {
             const storeRepository = AppDataSource.getRepository(Store);
-            const store = await storeRepository.findOne({ where: { storeId: req.params.registerId } });
+            const store = await storeRepository.findOne({ where: { storeId: req.params.id } });
 
             if (!store) {
                 return res.status(404).json({ message: 'store not found' });
@@ -86,7 +86,7 @@ export class StoreController {
 
     public async deleteStore(req: Request, res: Response): Promise<Response> {
         const storeRepository = AppDataSource.getRepository(Store);
-        const result = await storeRepository.delete(req.params.storeId);
+        const result = await storeRepository.delete(req.params.id);
         if (result.affected === 0) {
             return res.status(404).json({ message: 'store not found' });
         }

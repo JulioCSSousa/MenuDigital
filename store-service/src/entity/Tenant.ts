@@ -8,7 +8,7 @@ export class Tenant {
     @PrimaryGeneratedColumn('uuid')
     tenantId!: string;
     
-    @Column()
+    @Column({unique: true})
     registerId!: string;
 
     @Column({ length: 100 })
@@ -26,16 +26,13 @@ export class Tenant {
     @Column()
     planValue: number;
 
-    @OneToMany(() => Store, (stores) => stores.storeId, {nullable: true})
-    @JoinColumn({name: 'storeId'})
+    @OneToMany(() => Store, (stores) => stores.tenant, {nullable: true, cascade: true})
+    @JoinColumn()
     stores?: Store[]
 
-    @OneToMany(() => Address, (address) => address.addressId)
-    @JoinColumn({name: 'addressId'})
+    @OneToMany(() => Address, (address) => address.tenant, {cascade: true})
+    @JoinColumn()
     address: Address[]
-
-    
-
 
 }
 

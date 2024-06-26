@@ -9,10 +9,6 @@ export class Address {
     @PrimaryGeneratedColumn('uuid')
     addressId: string;
 
-    @OneToOne(() => Store, (store) => store.address, {nullable: true})
-    @JoinColumn({name: 'storeId'})
-    store?: Store
-
     @Column({ length: 100, nullable: true })
     street?: string;
 
@@ -25,10 +21,12 @@ export class Address {
     @Column({ nullable: true })
     complement?: string;
 
-    @ManyToOne(() => Tenant, (tenant) => tenant.tenantId, {nullable: true })
-    @JoinColumn({name: 'tenantId'})
+    @ManyToOne(() => Tenant, (tenant) => tenant.address, {nullable: true})
+    @JoinColumn({name: 'tenant'})
     tenant?: Tenant
 
-
+    @OneToOne(() => Store, (stores) => stores.address, {nullable: true})
+    @JoinColumn({name: 'stores'})
+    stores?: Store
 }
 

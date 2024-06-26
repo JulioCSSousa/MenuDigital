@@ -14,14 +14,14 @@ export class AddressController {
 
     public async getAddress(req: Request, res: Response): Promise<Response> {
         const addressRepository = AppDataSource.getRepository(Address);
-        const categories = await addressRepository.find();
+        const categories = await addressRepository.find({relations: ["tenant", "stores"]});
         return res.json(categories);
     }
 
     public async getAddressById(req: Request, res: Response): Promise<Response> {
 
         const addressRepository = AppDataSource.getRepository(Address);
-        let address = await addressRepository.findOne({ where: { addressId: req.params.addressId } });
+        let address = await addressRepository.findOne({ where: { addressId: req.params.id},relations: ["tenant", "stores"]});
         if (!address) {
             return res.status(404).json({ message: 'store not found' });
         }
@@ -30,7 +30,7 @@ export class AddressController {
 
     public async updateAddress(req: Request, res: Response): Promise<Response> {
         const addressRepository = AppDataSource.getRepository(Address);
-        let address = await addressRepository.findOne({ where: { addressId: req.params.addressId } });
+        let address = await addressRepository.findOne({ where: { addressId: req.params.id } });
         if (!address) {
             return res.status(404).json({ message: 'address not found' });
         }
@@ -42,7 +42,7 @@ export class AddressController {
     public async patchAddress(req: Request, res: Response): Promise<Response> {
         try {
             const addressRepository = AppDataSource.getRepository(Address);
-            const address = await addressRepository.findOne({ where: { addressId: req.params.addressId } });
+            const address = await addressRepository.findOne({ where: { addressId: req.params.id } });
 
             if (!address) {
                 return res.status(404).json({ message: 'address not found' });
@@ -62,7 +62,7 @@ export class AddressController {
 
     public async deleteAddress(req: Request, res: Response): Promise<Response> {
         const addressRepository = AppDataSource.getRepository(Address);
-        const result = await addressRepository.delete({ addressId: req.params.addressId });
+        const result = await addressRepository.delete({ addressId: req.params.id });
         if (result.affected === 0) {
             return res.status(404).json({ message: 'address not found' });
         }
