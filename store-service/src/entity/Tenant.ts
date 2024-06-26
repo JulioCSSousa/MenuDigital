@@ -26,11 +26,11 @@ export class Tenant {
     @Column()
     planValue: number;
 
-    @OneToMany(() => Store, (stores) => stores.tenant, {nullable: true, cascade: true})
+    @OneToMany(() => Store, (stores) => stores.tenant, {nullable: true, cascade: true, onDelete: 'SET NULL'})
     @JoinColumn()
     stores?: Store[]
 
-    @OneToMany(() => Address, (address) => address.tenant, {cascade: true})
+    @OneToMany(() => Address, (address) => address.tenant, {cascade: true, onDelete: 'SET NULL', })
     @JoinColumn()
     address: Address[]
 

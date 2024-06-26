@@ -8,11 +8,11 @@ export class Store {
     @PrimaryGeneratedColumn('uuid')
     storeId: string;
 
-    @ManyToOne(() => Tenant, (tenantId) => tenantId.stores)
+    @ManyToOne(() => Tenant, (tenantId) => tenantId.stores, {onDelete: 'SET NULL'})
     @JoinColumn({name: 'tenantId'})
     tenant: Tenant
 
-    @OneToOne(() => Address, (address) => address.stores, {nullable: true, cascade: true})
+    @OneToOne(() => Address, (address) => address.stores, {nullable: true, cascade: true, onDelete: 'SET NULL'})
     @JoinColumn({name: 'addressId'})
     address?: Address
 

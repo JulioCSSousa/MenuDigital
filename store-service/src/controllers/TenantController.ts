@@ -25,7 +25,7 @@ export class TenantController {
         });
     
         const totalPages = Math.ceil(total / limit);
-    
+
         return res.json({
           data: tenant,
           meta: {
@@ -85,7 +85,7 @@ export class TenantController {
             }
 
             Object.keys(req.body).forEach((key) => {
-                Tenant[key] = req.body[key];
+                tenant[key] = req.body[key];
             });
 
             const result = await tenantRepository.save(tenant);
