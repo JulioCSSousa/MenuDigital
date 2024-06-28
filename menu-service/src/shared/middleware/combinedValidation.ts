@@ -4,7 +4,9 @@ import { combinedDto } from "../../dtos/combinedDto";
 
 export const combinedSchema: yup.Schema<combinedDto> = yup.object().shape({
     mainMenu: yup.boolean().required(),
-    type: yup.string().required()
+    type: yup.string().required(),
+    min: yup.number().typeError('field needs to be a number'),
+    max: yup.number().typeError('field needs to be a number')
     
 });
 

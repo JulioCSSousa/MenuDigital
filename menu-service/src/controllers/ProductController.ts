@@ -12,29 +12,42 @@ export class ProductController {
     return res.json(newProduct);
   }
 
+
   async getProducts(req: Request, res: Response): Promise<Response> {
     const productRepository = AppDataSource.getRepository(Product);
-
-    
+ 
     const page = parseInt(req.query.page as string, 10) || 1;
     const limit = parseInt(req.query.limit as string, 10) || 10;
     const offset = (page - 1) * limit;
+    const combine = req.query.combine === 'true';
     
-    const [product, total] = await productRepository.findAndCount({
+    let [product, total]: any = [productRepository];
+
+    [product, total] = await productRepository.findAndCount({
+      relations: ["category"],
+      skip: offset,
+      take: limit,  
+    });
+
+    if(combine){
+    [product, total] = await productRepository.findAndCount({
       relations: ["category", "combined"],
       skip: offset,
       take: limit
     });
+  }
 
     const totalPages = Math.ceil(total / limit);
 
     return res.json({
       data: product,
+      
       meta: {
         total,
         page,
         limit,
-        totalPages
+        totalPages,
+        combine
       }
     });
   }
@@ -63,6 +76,7 @@ export class ProductController {
   }
     return res.json(product);
 }
+
 
   async updateProduct(req: Request, res: Response): Promise < Response > {
   const productRepository = AppDataSource.getRepository(Product);

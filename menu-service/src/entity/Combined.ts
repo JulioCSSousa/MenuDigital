@@ -6,6 +6,7 @@ import {
     ManyToOne,
     OneToOne,
     JoinColumn,
+    OneToMany,
   } from 'typeorm';
 
   import { Product } from './Product';
@@ -25,12 +26,18 @@ import {
     @ManyToOne(() => Product, product => product.id, { nullable: true, onDelete: 'CASCADE' })
     @JoinColumn()
     product?: Product;
+
+    @OneToMany(() => Category, category => category.combined, { nullable: true, onDelete: 'CASCADE' })
+    @JoinColumn()
+    category?: Category;
   
-    @Column({ type: 'json', nullable: true })
-      sizeRestriction?: {
-        size: string;
-        min: number;
-        max: number;
-      }[];
+    @Column({nullable: true })
+    size: string;
+
+    @Column({nullable: true })
+    min: number;
+
+    @Column({nullable: true })
+    max: number;
   }
   

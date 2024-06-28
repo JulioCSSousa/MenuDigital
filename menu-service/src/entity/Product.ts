@@ -35,7 +35,7 @@ export class Product {
   combineAmount: boolean | false
 
   
-  @ManyToOne(() => Category, (category) => category.product)
+  @ManyToOne(() => Category, (category) => category.product, {cascade: true})
   @JoinColumn({name: 'category'})
   category: Category;
 

@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../database';
 import { Store } from '../entity/Store';
-import * as yup from "yup";
 
 export class StoreController {
     public async createStore(req: Request, res: Response): Promise<Response> {

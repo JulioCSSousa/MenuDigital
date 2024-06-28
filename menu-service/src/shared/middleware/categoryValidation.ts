@@ -1,16 +1,19 @@
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { combinedDto } from "../../dtos/combinedDto";
+import { categoryDto } from "../../dtos/categoryDto";
 
-export const categorySchema: yup.Schema<combinedDto> = yup.object().shape({
-    mainMenu: yup.boolean().required(),
-    type: yup.string().required()
+
+export const categoryQuerySchema: yup.Schema<categoryDto> = yup.object().shape({
+    
+    id: yup.number()
     
 });
 
+
 export async function categoryValidation(request, response, next){
     try {
-        await categorySchema.validate(request.body, { abortEarly: false });
+        await categoryQuerySchema.validate(request.params, { abortEarly: false });
         next()
     
     } catch (exceptions) {
