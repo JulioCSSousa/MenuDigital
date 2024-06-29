@@ -19,24 +19,22 @@ export class ProductController {
     const page = parseInt(req.query.page as string, 10) || 1;
     const limit = parseInt(req.query.limit as string, 10) || 10;
     const offset = (page - 1) * limit;
-    const combine = req.query.combine === 'true';
-    
+    const combine = req.query.combine === 'true';  
     let [product, total]: any = [productRepository];
 
     [product, total] = await productRepository.findAndCount({
-      relations: ["category"],
       skip: offset,
       take: limit,  
     });
 
     if(combine){
     [product, total] = await productRepository.findAndCount({
-      relations: ["category", "combined"],
+      relations: ["combined"],
       skip: offset,
       take: limit
     });
   }
-
+    //const productdto = toProductDto 
     const totalPages = Math.ceil(total / limit);
 
     return res.json({
@@ -56,7 +54,7 @@ export class ProductController {
   const productRepository = AppDataSource.getRepository(Product);
   const product = await productRepository.findOne({
     where: { id: req.params.id },
-    relations: ["category", "combined"]
+    relations: ["combined"]
   });
   if(!product) {
     return res.status(404).json({ message: 'Product not found' });
@@ -64,18 +62,6 @@ export class ProductController {
     return res.json(product);
 }
 
-  async getProductByCategory(req: Request, res: Response): Promise < Response > {
-  const categoryId = Number(req.params.id)
-    const productRepository = AppDataSource.getRepository(Product);
-  const product = await productRepository.find({
-    where: { category: { id: categoryId } },
-    relations: ["category", "combined"]
-  });
-  if(!product) {
-    return res.status(404).json({ message: 'Product not found' });
-  }
-    return res.json(product);
-}
 
 
   async updateProduct(req: Request, res: Response): Promise < Response > {

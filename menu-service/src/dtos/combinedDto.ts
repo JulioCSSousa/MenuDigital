@@ -1,12 +1,19 @@
+import { Combined } from "../entity/Combined";
 
 export interface combinedDto {
-    id?: string;
     type?: string;
     mainMenu?: boolean;
-    sizeRestriction?: {
-        size?: string;
-        min?: number;
-        max?: number;
-    };
+    size?: string;
+    min?: number;
+    max?: number;
 }
+
+function combinedToDto(combined: Combined): combinedDto{
+    return {
+        type: combined.type,
+        mainMenu: combined.mainMenu,
+        min: combined.min,
+        max: combined.max
+    }
+  }
   

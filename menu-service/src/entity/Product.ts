@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
 import { Category } from './Category';
 import { Combined } from './Combined';
+import { json } from 'stream/consumers';
 
 @Entity()
 export class Product {
@@ -9,6 +10,9 @@ export class Product {
 
   @Column({ length: 100 })
   name: string;
+
+  @Column()
+  category: string
 
   @Column({ length: 500, nullable: true})
   description?: string | null;
@@ -20,24 +24,19 @@ export class Product {
   image?: string | null;
 
   @Column({nullable: true})
-  extraIndex?: number |null
+  extraIndex?: number | null
 
-  @Column({nullable: true})
-  observation?: string | null
+  @Column({nullable: true, type: 'json'})
+  observation?: string[] | null
 
-  @Column({nullable: true})
-  amount?: number | null
+  @Column({type: 'json', nullable: true})
+  price: number[];
 
-  @Column({nullable: true})
-  previewsAmount?: number |null
+  @Column({type: 'json', nullable: true})
+  previewsPrice?: number[];
 
   @Column()
-  combineAmount: boolean | false
-
-  
-  @ManyToOne(() => Category, (category) => category.product, {cascade: true})
-  @JoinColumn({name: 'category'})
-  category: Category;
+  combinedPrice: boolean
 
   @OneToMany(() => Combined, (combined) => combined.product, { cascade: true, nullable: true })
   @JoinColumn()

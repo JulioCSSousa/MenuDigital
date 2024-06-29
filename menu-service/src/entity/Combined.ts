@@ -4,13 +4,10 @@ import {
     PrimaryGeneratedColumn,
     Column,
     ManyToOne,
-    OneToOne,
     JoinColumn,
-    OneToMany,
   } from 'typeorm';
 
   import { Product } from './Product';
-  import { Category } from './Category';
   
   @Entity()
   export class Combined {
@@ -20,6 +17,9 @@ import {
     @Column({nullable: true})
     type: string;
 
+    @Column()
+    category: string
+
     @Column({nullable: true})
     mainMenu: boolean;
 
@@ -27,10 +27,6 @@ import {
     @JoinColumn()
     product?: Product;
 
-    @OneToMany(() => Category, category => category.combined, { nullable: true, onDelete: 'CASCADE' })
-    @JoinColumn()
-    category?: Category;
-  
     @Column({nullable: true })
     size: string;
 

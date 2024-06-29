@@ -1,4 +1,5 @@
-import { categoryDto } from "./categoryDto";
+import { Product } from "../entity/Product";
+
 
 export interface productDto {
   id?: string;
@@ -7,10 +8,26 @@ export interface productDto {
   isSale?: boolean | true;
   image?: string;
   extraIndex?: number;
-  observation?: string;
-  amount?: number;
-  previewsAmount?: number;
+  observation?: string[];
+  price?: number[];
+  previewsPrice?: number[];
   combineAmount?: boolean;
-  category?: categoryDto;
+  category?: string;
+}
+
+function productToDto(product: Product): productDto{
+  return {
+    id: product.id,
+    name: product.name,
+    description: product.description,
+    isSale: product.isSale,
+    image: product.image,
+    extraIndex: product.extraIndex,
+    observation: product.observation.values,
+    price: product.price.values,
+    previewsPrice: product.price.values,
+    combineAmount: product.combinedPrice,
+    category: product.category,
+  }
 }
 

@@ -20,11 +20,7 @@ describe('product - create', () => {
             "amount": 100,
             "previewsAmount": 90,
             "combineAmount": true,
-            "category": {
-              "id": 1,
-              "name": "Example Category",
-              "label": "Example Label"
-            },
+            "category": "Example Category",
             "combined": [
               {
                 "id": "combined-uuid",
