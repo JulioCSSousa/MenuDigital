@@ -13,7 +13,7 @@ AppDataSource.initialize().then(async () => {
 
     server.get('/', (req, res) => res.status(200).json(
         {
-            msg: "bem vindo à menu-service"
+            msg: "bem vindo ao menu-service"
         }));
 
     server.use(bodyParser.json())

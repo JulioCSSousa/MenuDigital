@@ -26,13 +26,13 @@ export class Product {
   @Column({nullable: true})
   extraIndex?: number | null
 
-  @Column({nullable: true, type: 'json'})
+  @Column({nullable: true, type: 'simple-array'})
   observation?: string[] | null
 
-  @Column({type: 'json', nullable: true})
+  @Column({type: 'simple-array', nullable: true})
   price: number[];
 
-  @Column({type: 'json', nullable: true})
+  @Column({type: 'simple-array', nullable: true})
   previewsPrice?: number[];
 
   @Column()

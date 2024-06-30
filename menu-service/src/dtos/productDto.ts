@@ -23,9 +23,9 @@ function productToDto(product: Product): productDto{
     isSale: product.isSale,
     image: product.image,
     extraIndex: product.extraIndex,
-    observation: product.observation.values,
-    price: product.price.values,
-    previewsPrice: product.price.values,
+    observation: product.observation,
+    price: product.price,
+    previewsPrice: product.price,
     combineAmount: product.combinedPrice,
     category: product.category,
   }
