@@ -1,7 +1,14 @@
 import { server } from "./Server";
 
-const port = 13331;
-const host = 'menudigitaldb-menudigitaldb.f.aivencloud.com:'
+const port = 8000;
+const host = '0.0.0.0'
 server.listen(
-    port, () => console.log(`Server is running at ${host}:${port}`));
+    port, host, () => console.log(`Server is running at ${port} ${host}`) 
+
+);
+
+server.use((req, _res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+  });
     

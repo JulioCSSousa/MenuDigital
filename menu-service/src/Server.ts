@@ -1,4 +1,5 @@
 import { AppDataSource } from "./database/data-source"
+const cors = require('cors');
 import express from 'express';
 import bodyParser from 'body-parser';
 import productRoutes from './shared/routes/ProductRoutes';
@@ -10,12 +11,14 @@ dotenv.config();
 const server = express();
 
 AppDataSource.initialize().then(async () => {
-
-    server.get('/', (req, res) => res.status(200).json(
+    
+    server.get('/', (_req, res) => res.status(200).json(
         {
             msg: "bem vindo ao menu-service"
         }));
 
+
+    server.use(cors())
     server.use(bodyParser.json())
     server.use(productRoutes);
     server.use(additionalRoutes);

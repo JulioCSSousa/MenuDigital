@@ -11,7 +11,7 @@ export interface productDto {
   observation?: string[];
   price?: number[];
   previewsPrice?: number[];
-  combineAmount?: boolean;
+  combinePrice?: boolean;
   category?: string;
 }
 
@@ -26,7 +26,7 @@ function productToDto(product: Product): productDto{
     observation: product.observation,
     price: product.price,
     previewsPrice: product.price,
-    combineAmount: product.combinedPrice,
+    combinePrice: product.combinedPrice,
     category: product.category,
   }
 }

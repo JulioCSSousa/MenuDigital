@@ -30,10 +30,10 @@ COPY --from=build /usr/src/app/package*.json ./
 RUN npm ci --only=production
 
 # Exponha a porta que a aplicação usará
-EXPOSE 3000
+EXPOSE 8000
 
 # Defina variáveis de ambiente necessárias
 ENV NODE_ENV=production
 
 # Comando para iniciar a aplicação
-CMD ["node", "build/index.js"]
+CMD ["npm", "start"]

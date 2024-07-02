@@ -34,7 +34,6 @@ export class ProductController {
       take: limit
     });
   }
-    //const productdto = toProductDto 
     const totalPages = Math.ceil(total / limit);
 
     return res.json({
