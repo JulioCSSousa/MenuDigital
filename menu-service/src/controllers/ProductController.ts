@@ -2,8 +2,6 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../database/data-source';
 import { Product } from '../entity/Product';
 
-
-
 export class ProductController {
   public async createProduct(req: Request, res: Response): Promise<Response> {
     const productRepository = AppDataSource.getRepository(Product);
@@ -28,12 +26,20 @@ export class ProductController {
     });
 
     if(combine){
+      
     [product, total] = await productRepository.findAndCount({
       relations: ["combined"],
+      where: {combined: {mainMenu: true}},
       skip: offset,
       take: limit
+      
     });
   }
+  product.forEach(product => {
+    if (product.combined) {
+        product.combined.forEach(combined => delete combined.id);
+    }
+});
     const totalPages = Math.ceil(total / limit);
 
     return res.json({

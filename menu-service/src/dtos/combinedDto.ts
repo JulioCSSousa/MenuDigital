@@ -1,14 +1,24 @@
 import { Combined } from "../entity/Combined";
 
-export interface combinedDto {
+export class CombinedDto {
     type?: string;
+    category?:string;
     mainMenu?: boolean;
     size?: string;
     min?: number;
     max?: number;
+
+    constructor(type?:string, category?: string, mainMenu?:boolean, size?: string, min?: number, max?:number ){
+        this.type = type;
+        this.category = category;
+        this.mainMenu = mainMenu;
+        this.size = size;
+        this.min = min; 
+        this.max = max;
+    }
 }
 
-function combinedToDto(combined: Combined): combinedDto{
+export function combinedToDto(combined: Combined): CombinedDto{
     return {
         type: combined.type,
         mainMenu: combined.mainMenu,

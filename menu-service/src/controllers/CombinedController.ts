@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../database/data-source';
 import { Combined } from '../entity/Combined';
+import { CombinedDto, combinedToDto } from '../dtos/combinedDto';
 
 export class CombinedController {
   public async createcombined(req: Request, res: Response): Promise<Response> {
@@ -13,7 +14,9 @@ export class CombinedController {
   public async getcombineds(req: Request, res: Response): Promise<Response> {
     const combinedRepository = AppDataSource.getRepository(Combined);
     const combineds = await combinedRepository.find();
-    return res.json(combineds);
+    const combinedsDto = combineds.map(c => 
+      new CombinedDto(c.type,c.category, c.mainMenu, c.size,c.min,c.max,))
+    return res.json(combinedsDto);
   }
 
   public async getcombinedById(req: Request, res: Response): Promise<Response> {
@@ -24,7 +27,9 @@ export class CombinedController {
     if (!combined) {
       return res.status(404).json({ message: 'combined not found' });
     }
-    return res.json(combined);
+    
+    const combinedDto = combinedToDto(combined)
+    return res.json(combinedDto);
   }
 
   public async updatecombined(req: Request, res: Response): Promise<Response> {

@@ -8,14 +8,15 @@ dotenv.config();
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: process.env.DB_HOST,
-    port: parseInt(process.env.DB_PORT),
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST_LOCAL,
+    port: parseInt(process.env.DB_PORT_LOCAL),
+    username: process.env.DB_USER_LOCAL,
+    password: process.env.LOCAL_PASS,
     database: process.env.DB,
     synchronize: true,
     logging: false,
     entities: [Product,Combined],
     migrations: [__dirname + '/../../typeorm-migrations/*.{ts,js}']
 })
+
 

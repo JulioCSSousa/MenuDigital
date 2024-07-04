@@ -13,12 +13,14 @@ export interface productDto {
   previewsPrice?: number[];
   combinePrice?: boolean;
   category?: string;
+  
 }
 
-function productToDto(product: Product): productDto{
+export function productToDto(product: Product): productDto{
   return {
     id: product.id,
     name: product.name,
+    category: product.category,
     description: product.description,
     isSale: product.isSale,
     image: product.image,
@@ -27,7 +29,8 @@ function productToDto(product: Product): productDto{
     price: product.price,
     previewsPrice: product.price,
     combinePrice: product.combinedPrice,
-    category: product.category,
+    
+    
   }
 }
 
