@@ -43,5 +43,4 @@ server.use((req, res, next) => {
 server.use(productRoutes);
 server.use(additionalRoutes);
 
-
 export { server };
