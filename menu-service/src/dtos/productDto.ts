@@ -1,4 +1,3 @@
-import { Product } from "../entity/Product";
 
 
 export class productDto {

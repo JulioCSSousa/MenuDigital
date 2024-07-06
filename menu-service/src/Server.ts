@@ -1,5 +1,4 @@
 import { AppDataSource } from "./database/data-source";
-const cors = require('cors');
 import express from 'express';
 import bodyParser from 'body-parser';
 import productRoutes from './shared/routes/ProductRoutes';
@@ -8,7 +7,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 const server = express();
-
+const cors = require('cors');
 let dbConnectionEstablished = false;
 
 export async function testDatabaseConnection(): Promise<void> {

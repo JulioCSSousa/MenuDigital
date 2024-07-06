@@ -1,7 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { productDto } from "../../dtos/productDto";
-import { RequestHandler, response } from "express";
 
 export const productSchema: yup.Schema<productDto> = yup.object().shape({
 

@@ -34,7 +34,7 @@ export class CombinedController {
 
   public async updatecombined(req: Request, res: Response): Promise<Response> {
     const combinedRepository = AppDataSource.getRepository(Combined);
-    let combined = await combinedRepository.findOne({ where: { id: req.params.id } });
+    const combined = await combinedRepository.findOne({ where: { id: req.params.id } });
     if (!combined) {
       return res.status(404).json({ message: 'combined not found' });
     }
