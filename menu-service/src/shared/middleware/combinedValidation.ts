@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
-import { combinedDto } from "../../dtos/combinedDto";
+import { CombinedDto } from "../../dtos/combinedDto";
 
-export const combinedSchema: yup.Schema<combinedDto> = yup.object().shape({
+export const combinedSchema: yup.Schema<CombinedDto> = yup.object().shape({
     mainMenu: yup.boolean().required(),
     type: yup.string().required(),
     min: yup.number().typeError('field needs to be a number'),
@@ -12,6 +12,7 @@ export const combinedSchema: yup.Schema<combinedDto> = yup.object().shape({
 });
 
 export async function combinedValidation(request, response, next){
+    
     try {
         await combinedSchema.validate(request.body, { abortEarly: false });
         next()

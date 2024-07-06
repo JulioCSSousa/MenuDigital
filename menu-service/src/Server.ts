@@ -1,28 +1,52 @@
-import { AppDataSource } from "./database/data-source"
+import { AppDataSource } from "./database/data-source";
 const cors = require('cors');
 import express from 'express';
 import bodyParser from 'body-parser';
 import productRoutes from './shared/routes/ProductRoutes';
 import additionalRoutes from "./shared/routes/CombinedRoutes";
-import * as dotenv from "dotenv"
-
+import * as dotenv from "dotenv";
 
 dotenv.config();
 const server = express();
 
-AppDataSource.initialize().then(async () => {
-    
-    server.get('/', (_req, res) => res.status(200).json(
-        {
-            msg: "bem vindo ao menu-service"
-        }));
+let dbConnectionEstablished = false;
 
+async function testDatabaseConnection(): Promise<void> {
+  try {
+    await AppDataSource.initialize();
+    console.log('Database connection established successfully.');
+    dbConnectionEstablished = true;
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+  }
+}
 
-    server.use(cors())
-    server.use(bodyParser.json())
-    server.use(productRoutes);
-    server.use(additionalRoutes);
-    
+server.get('/', (_req, res) => res.status(200).json(
+  {
+    msg: "Welcome to menu-service"
+  }
+));
+
+server.use(cors());
+server.use(bodyParser.json());
+
+// Middleware para verificar a conexão com o banco de dados
+server.use((req, res, next) => {
+  if (!dbConnectionEstablished) {
+    return res.status(503).json({
+      error: 'Service Unavailable: Unable to connect to the database. Contact the support please'
+    });
+  }
+  next();
 });
 
-export {server};
+server.use(productRoutes);
+server.use(additionalRoutes);
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  testDatabaseConnection(); 
+});
+
+export { server };

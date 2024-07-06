@@ -3,15 +3,18 @@ import { DataSource } from "typeorm"
 import * as dotenv from "dotenv"
 import {Product} from "../entity/Product"
 import {Combined} from "../entity/Combined"
+import { StatusCodes } from "http-status-codes"
+import { RequestHandler } from "express"
 
 dotenv.config();
 
+
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: process.env.DB_HOST_LOCAL,
-    port: parseInt(process.env.DB_PORT_LOCAL),
-    username: process.env.DB_USER_LOCAL,
-    password: process.env.LOCAL_PASS,
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT),
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: process.env.DB,
     synchronize: true,
     logging: false,
