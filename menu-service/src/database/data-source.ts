@@ -3,8 +3,6 @@ import { DataSource } from "typeorm"
 import * as dotenv from "dotenv"
 import {Product} from "../entity/Product"
 import {Combined} from "../entity/Combined"
-import { StatusCodes } from "http-status-codes"
-import { RequestHandler } from "express"
 
 dotenv.config();
 

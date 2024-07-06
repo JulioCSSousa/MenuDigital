@@ -1,7 +1,7 @@
 import { Product } from "../entity/Product";
 
 
-export interface productDto {
+export class productDto {
   id?: string;
   name?: string;
   description?: string;
@@ -13,24 +13,35 @@ export interface productDto {
   previewsPrice?: number[];
   combinePrice?: boolean;
   category?: string;
+
+  constructor(
+    id?: string,
+    name?: string,
+    description?: string,
+    isSale?: boolean,
+    image?: string,
+    extraIndex?: number,
+    observation?: string[],
+    price?: number[],
+    previewsPrice?: number[],
+    combinePrice?: boolean,
+    category?: string,
+
+  ){
+
+    this.id =id;
+    this.name = name;
+    this.description = description;
+    this.isSale = isSale;
+    this.image = image;
+    this.extraIndex = extraIndex;
+    this.observation = observation;
+    this.price = price;
+    this.previewsPrice = previewsPrice;
+    this.combinePrice = combinePrice;
+    this.category = category;
+  }
   
 }
 
-export function productToDto(product: Product): productDto{
-  return {
-    id: product.id,
-    name: product.name,
-    category: product.category,
-    description: product.description,
-    isSale: product.isSale,
-    image: product.image,
-    extraIndex: product.extraIndex,
-    observation: product.observation,
-    price: product.price,
-    previewsPrice: product.price,
-    combinePrice: product.combinedPrice,
-    
-    
-  }
-}
 
