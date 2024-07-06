@@ -1,39 +1,38 @@
 
 import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    ManyToOne,
-    JoinColumn,
-  } from 'typeorm';
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 
-  import { Product } from './Product';
-  
-  @Entity()
-  export class Combined {
-    @PrimaryGeneratedColumn('uuid')
-    id!: string;
-    
-    @Column({nullable: true})
-    type: string;
+import { Product } from './Product';
 
-    @Column()
-    category: string
+@Entity()
+export class Combined {
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-    @Column({nullable: true})
-    mainMenu: boolean;
+  @Column({ nullable: true })
+  type: string;
 
-    @ManyToOne(() => Product, product => product.id, { nullable: true, onDelete: 'CASCADE' })
-    @JoinColumn()
-    product?: Product;
+  @Column()
+  category: string
 
-    @Column({nullable: true })
-    size: string;
+  @Column({ nullable: true })
+  mainMenu: boolean;
 
-    @Column({nullable: true })
-    min: number;
+  @ManyToOne(() => Product, product => product.id, { nullable: true, onDelete: 'CASCADE' })
+  @JoinColumn()
+  product?: Product;
 
-    @Column({nullable: true })
-    max: number;
-  }
-  
+  @Column({ nullable: true })
+  size: string;
+
+  @Column({ nullable: true })
+  min: number;
+
+  @Column({ nullable: true })
+  max: number;
+}

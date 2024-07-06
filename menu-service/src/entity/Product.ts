@@ -12,7 +12,7 @@ export class Product {
   @Column()
   category: string
 
-  @Column({ length: 500, nullable: true})
+  @Column({ length: 500, nullable: true })
   description?: string | null;
 
   @Column()
@@ -21,16 +21,16 @@ export class Product {
   @Column({ length: 300, nullable: true })
   image?: string | null;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   extraIndex?: number | null
 
-  @Column({nullable: true, type: 'simple-array'})
+  @Column({ nullable: true, type: 'simple-array' })
   observation?: string[] | null
 
-  @Column({type: 'simple-array', nullable: true})
+  @Column({ type: 'simple-array', nullable: true })
   price: number[];
 
-  @Column({type: 'simple-array', nullable: true})
+  @Column({ type: 'simple-array', nullable: true })
   previewsPrice?: number[];
 
   @Column()

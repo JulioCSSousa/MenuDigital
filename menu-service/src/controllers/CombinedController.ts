@@ -14,8 +14,8 @@ export class CombinedController {
   public async getcombineds(req: Request, res: Response): Promise<Response> {
     const combinedRepository = AppDataSource.getRepository(Combined);
     const combineds = await combinedRepository.find();
-    const combinedsDto = combineds.map(c => 
-      new CombinedDto(c.type,c.category, c.mainMenu, c.size,c.min,c.max,))
+    const combinedsDto = combineds.map(c =>
+      new CombinedDto(c.type, c.category, c.mainMenu, c.size, c.min, c.max,))
     return res.json(combinedsDto);
   }
 
@@ -27,7 +27,7 @@ export class CombinedController {
     if (!combined) {
       return res.status(404).json({ message: 'combined not found' });
     }
-    
+
     const combinedDto = combinedToDto(combined)
     return res.json(combinedDto);
   }

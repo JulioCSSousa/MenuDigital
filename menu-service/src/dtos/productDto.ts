@@ -26,9 +26,9 @@ export class productDto {
     combinePrice?: boolean,
     category?: string,
 
-  ){
+  ) {
 
-    this.id =id;
+    this.id = id;
     this.name = name;
     this.description = description;
     this.isSale = isSale;
@@ -40,7 +40,7 @@ export class productDto {
     this.combinePrice = combinePrice;
     this.category = category;
   }
-  
+
 }
 
 
