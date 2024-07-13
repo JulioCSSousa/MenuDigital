@@ -4,6 +4,8 @@ import * as dotenv from "dotenv"
 import { Address} from "../entity/Address";
 import { Tenant} from "../entity/Tenant";
 import { Store} from "../entity/Store";
+import { SocialMedia } from "../entity/SocialMedia";
+import { Category } from "../entity/Category";
 
 
 dotenv.config();
@@ -19,9 +21,8 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE,
     synchronize: true,
     logging: false,
-    entities: [Store, Address, Tenant],
+    entities: [Store, Address, Tenant, SocialMedia],
     migrations: ["./menu_service/src/migrations/*.ts"],
-    subscribers: [],
 
     
 })

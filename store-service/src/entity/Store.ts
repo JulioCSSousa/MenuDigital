@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Tenant } from "./Tenant";
 import { Address } from "./Address";
+import { SocialMedia } from "./SocialMedia";
 
 
 @Entity()
@@ -8,25 +9,12 @@ export class Store {
     @PrimaryGeneratedColumn('uuid')
     storeId: string;
 
-    @ManyToOne(() => Tenant, (tenantId) => tenantId.stores, {onDelete: 'SET NULL'})
-    @JoinColumn({name: 'tenantId'})
-    tenant: Tenant
-
-    @OneToOne(() => Address, (address) => address.stores, {nullable: true, cascade: true, onDelete: 'SET NULL'})
-    @JoinColumn({name: 'addressId'})
-    address?: Address
-
-    @Column({nullable: true})
-    storePhone?: string;
 
     @Column({ length: 100 })
     storeName: string;
 
-    @Column({nullable: true})
-    workTime?: string;
-
-    @Column({ length: 100, nullable: true })
-    categoryId?: string;
+    @Column({ type: 'simple-array', nullable: true })
+    category: string[];
 
     @Column({ length: 800, nullable: true })
     description?: string;
@@ -34,14 +22,45 @@ export class Store {
     @Column({ length: 800, nullable: true })
     imageUrl?: string;
 
+    @Column()
+    hasImage: boolean | true
+
+    @Column()
+    closed: boolean | false
+
     @Column({ type: 'json', nullable: true })
     color?: {
         primary: string,
         secundary: string
     };
 
-    @Column({ length: 300, nullable: true })
-    logo?: string;
+    @Column({ type: 'json', nullable: true })
+    images?: {
+        logo?: string;
+        header?: string;
+    }
 
+    @Column({ type: 'simple-array' })
+    openingHours: string[][];    
+    
+    @Column({ type: 'simple-array' })
+    paymentForms: string[];
+
+    @Column({ type: 'json', nullable: true })
+    contact?: {
+        storePhone?: string[],
+        whatsApp?: string[],
+        email?: string[]
+    };
+
+    alert?: string;
+
+    @OneToOne(() => Address, (address) => address, { nullable: true, cascade: true, onDelete: 'SET NULL' })
+    @JoinColumn({ name: 'address' })
+    address?: Address;
+
+    @OneToMany(() => SocialMedia, (socialMedias) => socialMedias.store, { nullable: true, cascade: true, onDelete: 'SET NULL' })
+    @JoinColumn()
+    socialMedias?: SocialMedia[];
 }
 

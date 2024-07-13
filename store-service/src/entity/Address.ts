@@ -21,12 +21,5 @@ export class Address {
     @Column({ nullable: true })
     complement?: string;
 
-    @ManyToOne(() => Tenant, (tenant) => tenant.address, {nullable: true, onDelete: 'SET NULL'})
-    @JoinColumn({name: 'tenant'})
-    tenant?: Tenant
-
-    @OneToOne(() => Store, (stores) => stores.address, {nullable: true, onDelete: 'SET NULL'})
-    @JoinColumn({name: 'stores'})
-    stores?: Store
 }
 

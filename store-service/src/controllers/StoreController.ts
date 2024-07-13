@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../database';
 import { Store } from '../entity/Store';
+import { Category } from '../entity/Category';
+import { StoreDto } from '../interfaces/dtos/storeDto';
 
 export class StoreController {
     public async createStore(req: Request, res: Response): Promise<Response> {
@@ -20,19 +22,15 @@ export class StoreController {
         const limit = parseInt(req.query.limit as string, 10) || 10;
         const offset = (page - 1) * limit;   
         const [store, total] = await storeRepository.findAndCount({
-          relations: ["tenant", "address"],
+          relations: ['address', 'socialMedias'],
           skip: offset,
           take: limit   
         });
     
         const totalPages = Math.ceil(total / limit);
 
-        const result = store.map(store => ({
-            storeId: store.storeId,
-            storeName: store.storeName,
-            tenantId: store.tenant ? store.tenant.tenantId : null,
-            addressId: store.address ? store.address.addressId : null,
-        }));
+        const result: StoreDto[] = store.map(store => 
+            new StoreDto(store));
     
         return res.json({
           data: result,
@@ -48,7 +46,10 @@ export class StoreController {
     public async getStoreById(req: Request, res: Response): Promise<Response> {
 
         const storeRepository = AppDataSource.getRepository(Store);
-        let store = await storeRepository.findOne({ where: { storeId: req.params.id }, relations: ["address", "tenant"] });
+        let store = await storeRepository.findOne({
+            where: { storeId: req.params.id },
+            relations: ['address', 'socialMedias']
+        });
         if (!store) {
             return res.status(404).json({ message: 'store not found' });
         }

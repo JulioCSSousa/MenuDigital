@@ -2,8 +2,7 @@
 import { StoreDto } from "./storeDto";
 import { tenantDto } from "./tenantDto";
 
-export interface addressDto {
-    addressId?: string | null;
+export interface AddressDto {
     store?: StoreDto | null;
     street?: string | null;
     storeNumber?: string | null;

@@ -13,8 +13,8 @@ export class CombinedController {
 
   public async getcombineds(req: Request, res: Response): Promise<Response> {
     const combinedRepository = AppDataSource.getRepository(Combined);
-    const combineds = await combinedRepository.find();
-    const combinedsDto = combineds.map(c =>
+    const combined = await combinedRepository.find();
+    const combinedsDto = combined.map(c =>
       new CombinedDto(c.type, c.category, c.mainMenu, c.size, c.min, c.max,))
     return res.json(combinedsDto);
   }

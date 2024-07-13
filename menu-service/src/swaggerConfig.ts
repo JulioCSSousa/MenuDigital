@@ -11,7 +11,7 @@ const options = {
       description: 'API documentation for the service'
     },
   },
-  apis: ['./src/**/*.ts'], // Caminho para os arquivos que contêm anotações JSDoc
+  apis: ['./src/**/*.ts'], 
 };
 
 const specs = swaggerJsdoc(options);
