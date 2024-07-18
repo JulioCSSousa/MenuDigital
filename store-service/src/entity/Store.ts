@@ -55,6 +55,9 @@ export class Store {
 
     alert?: string;
 
+    @Column({ nullable: true })
+    minOrderPrice?: number
+
     @OneToOne(() => Address, (address) => address, { nullable: true, cascade: true, onDelete: 'SET NULL' })
     @JoinColumn({ name: 'address' })
     address?: Address;

@@ -10,13 +10,14 @@ import * as dotenv from "dotenv"
 dotenv.config();
 const server = express();
 
-
 AppDataSource.initialize().then(async () => {
 
     server.get('/', (req, res) => res.status(200).json({
         msg: "Bem-vindo à store-service"
     }));
-
+    
+    const cors = require('cors');
+    server.use(cors())
     server.use(bodyParser.json())
     server.use(storeRoutes);
     server.use(addressRoutes);

@@ -14,14 +14,14 @@ export class AddressController {
 
     public async getAddress(req: Request, res: Response): Promise<Response> {
         const addressRepository = AppDataSource.getRepository(Address);
-        const categories = await addressRepository.find({relations: ["tenant", "stores"]});
-        return res.json(categories);
+        const address = await addressRepository.find();
+        return res.json(address);
     }
 
     public async getAddressById(req: Request, res: Response): Promise<Response> {
 
         const addressRepository = AppDataSource.getRepository(Address);
-        let address = await addressRepository.findOne({ where: { addressId: req.params.id},relations: ["tenant", "stores"]});
+        let address = await addressRepository.findOne({ where: { addressId: req.params.id},relations: ["stores"]});
         if (!address) {
             return res.status(404).json({ message: 'store not found' });
         }
@@ -66,6 +66,6 @@ export class AddressController {
         if (result.affected === 0) {
             return res.status(404).json({ message: 'address not found' });
         }
-        return res.status(204).send();
+        return res.status(204).send("Successful deleted");
     }
 }

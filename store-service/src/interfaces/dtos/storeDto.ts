@@ -18,16 +18,18 @@ interface StoreDtoProps {
     contact?: IContacts;
     alert?: string;
     socialMedias?: SocialMediaDto[];
+    minOrderPrice?: number
 }
-interface IColor{
+
+interface IColor {
     primary: string,
     secundary: string
 }
-interface IImages{
+interface IImages {
     logo?: string;
     header?: string;
 }
-interface IContacts{
+interface IContacts {
     storePhone?: string[],
     whatsApp?: string[],
     email?: string[]
@@ -48,6 +50,7 @@ export class StoreDto {
     contact: IContacts;
     alert: string;
     socialMedias: SocialMediaDto[];
+    minOrderPrice: number;
 
     constructor(props: StoreDtoProps) {
         this.storeId = props.storeId;
@@ -65,6 +68,7 @@ export class StoreDto {
         this.contact = props.contact;
         this.alert = props.alert;
         this.socialMedias = props.socialMedias;
+        this.minOrderPrice = props.minOrderPrice;
     }
 }
 

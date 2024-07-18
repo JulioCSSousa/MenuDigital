@@ -55,7 +55,7 @@ export class TenantController {
         const tenantRepository = AppDataSource.getRepository(Tenant);
         const tenant = await tenantRepository.findOne({
              where: { tenantId: req.params.id },
-             relations: ["stores", "address"]
+             relations: ["stores"]
             });
         console.log(tenant)
         if (!tenant) {
@@ -102,6 +102,6 @@ export class TenantController {
         if (result.affected === 0) {
             return res.status(404).json({ message: 'Tenant not found' });
         }
-        return res.status(204).send("Deleted");
+        return res.status(204).json({ message: "Successful deleted" });
     }
 }

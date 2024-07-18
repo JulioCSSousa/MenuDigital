@@ -3,6 +3,7 @@ import { AppDataSource } from '../database';
 import { Store } from '../entity/Store';
 import { Category } from '../entity/Category';
 import { StoreDto } from '../interfaces/dtos/storeDto';
+import { SocialMediaDto } from '../interfaces/dtos/socialMediaDto';
 
 export class StoreController {
     public async createStore(req: Request, res: Response): Promise<Response> {
@@ -94,6 +95,6 @@ export class StoreController {
         if (result.affected === 0) {
             return res.status(404).json({ message: 'store not found' });
         }
-        return res.status(204).send();
+        return res.status(204).json({message: "Successful deleted"});
     }
 }
