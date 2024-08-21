@@ -2,6 +2,7 @@
 
 export class productDto {
   id?: string;
+  storeId?: string;
   name?: string;
   description?: string;
   isSale?: boolean | true;
@@ -12,9 +13,11 @@ export class productDto {
   previewsPrice?: number[];
   combinePrice?: boolean;
   category?: string;
+  multiple?: boolean  
 
   constructor(
     id?: string,
+    storeId?: string,
     name?: string,
     description?: string,
     isSale?: boolean,
@@ -25,10 +28,12 @@ export class productDto {
     previewsPrice?: number[],
     combinePrice?: boolean,
     category?: string,
+    multiple?: boolean
 
   ) {
 
     this.id = id;
+    this.storeId = storeId
     this.name = name;
     this.description = description;
     this.isSale = isSale;
@@ -39,6 +44,7 @@ export class productDto {
     this.previewsPrice = previewsPrice;
     this.combinePrice = combinePrice;
     this.category = category;
+    this.multiple = multiple
   }
 
 }

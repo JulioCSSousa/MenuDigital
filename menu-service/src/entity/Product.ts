@@ -6,6 +6,9 @@ export class Product {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
+  @Column('uuid')
+  storeId?: string
+
   @Column({ length: 100 })
   name: string;
 
@@ -36,6 +39,9 @@ export class Product {
   @Column()
   combinedPrice: boolean
 
+  @Column()
+  multiple: boolean
+  
   @OneToMany(() => Combined, (combined) => combined.product, { cascade: true, nullable: true })
   @JoinColumn()
   combined?: Combined[] | null;

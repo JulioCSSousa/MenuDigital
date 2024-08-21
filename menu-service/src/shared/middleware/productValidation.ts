@@ -5,6 +5,7 @@ import { productDto } from "../../dtos/productDto";
 export const productSchema: yup.Schema<productDto> = yup.object().shape({
 
     name: yup.string().required(),
+    productId: yup.string(),
     isSale: yup.boolean().typeError('field needs to be a boolean'),
     extraindex: yup.number().typeError('field needs to be a number'),
     price: yup.array().of(yup.number()).test(
@@ -17,6 +18,7 @@ export const productSchema: yup.Schema<productDto> = yup.object().shape({
     ),
     previewPrice: yup.array().typeError('field needs to be a number'),
     combinedPrice: yup.boolean().typeError('field needs to be a boolean')
+    
 });
 
 export async function productValidation(request, response, next) {
