@@ -1,4 +1,0 @@
-Domain: Onde ficam as regras de negócio e as entidades.
-Application: Onde ficam os casos de uso e interfaces de comunicação entre as camadas.
-Infrastructure: Onde ficam as implementações específicas, como acesso a dados e frameworks.
-Presentation: Onde ficam os controladores, rotas e qualquer coisa relacionada à interface de usuário.
