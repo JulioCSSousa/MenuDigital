@@ -21,6 +21,7 @@ interface IContacts {
 export class StoreDto {
     storeId: string;
     storeName: string;
+    addressId: string;
     address: AddressDto;
     category: string[];
     description: string;
@@ -39,6 +40,7 @@ export class StoreDto {
     constructor(props: any) {
         this.storeId = props.storeId;
         this.storeName = props.storeName;
+        this.addressId = props.addressId;
         this.address = props.address;
         this.category = props.category;
         this.description = props.description;
@@ -56,12 +58,12 @@ export class StoreDto {
     }
 }
 
-export function toDto(store: Store[]) {
+export function toDtoResponse(store: Store[]) {
     return (
         store.map(store => new StoreDto({
             storeId: store.storeId,
             storeName: store.storeName,
-            address: new AddressDto(store.address),
+            address: store.address,
             category: store.category,
             description: store.description,
             imageUrl: store.imageUrl,

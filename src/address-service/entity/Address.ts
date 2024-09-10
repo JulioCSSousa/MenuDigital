@@ -12,13 +12,16 @@ export class Address {
     street?: string;
 
     @Column({ nullable: true })
-    storeNumber?: string;
+    number?: string;
 
     @Column({ length: 100, nullable: true })
     district?: string;
 
     @Column({ nullable: true })
     complement?: string;
+
+    @Column()
+    zipCode?: string
 
 }
 

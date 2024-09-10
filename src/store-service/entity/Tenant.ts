@@ -1,6 +1,5 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { Store } from "./Store";
-import { Address } from "./Address";
 
 @Entity()
 export class Tenant {

@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn, OneToOne, ManyToOne } from 'typeorm';
 import { Combined } from './Combined';
 import { Store } from '../../store-service/entity/Store';
+import { Order } from '../../order-service/entity/Order';
 
 @Entity()
 export class Product {
@@ -47,5 +48,6 @@ export class Product {
   @OneToMany(() => Combined, (combined) => combined.product, { cascade: true, nullable: true })
   @JoinColumn()
   combined?: Combined[] | null;
+
 }
 

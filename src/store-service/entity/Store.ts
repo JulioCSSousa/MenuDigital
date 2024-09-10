@@ -1,6 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Tenant } from "./Tenant";
-import { Address } from "./Address";
+import { Address } from "../../address-service/entity/Address";
 import { SocialMedia } from "./SocialMedia";
 
 
@@ -58,9 +57,8 @@ export class Store {
     @Column({ nullable: true })
     minOrderPrice?: number
 
-    @OneToOne(() => Address, (address) => address, { nullable: true, cascade: true, onDelete: 'SET NULL' })
-    @JoinColumn({ name: 'address' })
-    address?: Address;
+    @Column({type: 'json'})
+    address?: JSON;
 
     @OneToMany(() => SocialMedia, (socialMedias) => socialMedias.store, { nullable: true, cascade: true, onDelete: 'SET NULL' })
     @JoinColumn()

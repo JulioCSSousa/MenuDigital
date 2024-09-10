@@ -1,10 +1,11 @@
-import { AppDataSource } from "./database/data-source";
+import { AppDataSource } from "./data-source";
 import express from 'express';
 import bodyParser from 'body-parser';
-import productRoutes from './menu-service/shared/routes/ProductRoutes';
-import storeRoutes from "./store-service/shared/routes/StoreRoutes";
-import addressRoutes from "./store-service/shared/routes/AddressRoutes";
+import productRoutes from '../menu-service/shared/routes/ProductRoutes';
+import storeRoutes from "../store-service/shared/routes/StoreRoutes";
+import addressRoutes from "../address-service/routes/AddressRoutes";
 import * as dotenv from "dotenv"
+import orderRoutes from "../order-service/shared/routes/orderRoutes";
 
 dotenv.config();
 const server = express();
@@ -34,6 +35,7 @@ startServer()
 server.use(productRoutes);
 server.use(storeRoutes);
 server.use(addressRoutes);
+server.use(orderRoutes)
 
 
 // Middleware para verificar a conexão com o banco
@@ -46,4 +48,4 @@ server.use((req, res, next) => {
   next();
 });
 
-export {server}
+export { server }

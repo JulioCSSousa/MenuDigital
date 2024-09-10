@@ -1,4 +1,4 @@
-import { server, startServer } from "./Server";
+import { server } from "./database/Server";
 
 const menuport = 8000;
 const host = '0.0.0.0';

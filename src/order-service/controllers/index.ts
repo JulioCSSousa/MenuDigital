@@ -1,4 +1,4 @@
-export * from './CreateProductController'
+export * from './CreateOrderController'
 export * from './GetProductsController'
 export * from './GetProductsByIdController'
 export * from './DeleteProductsController'

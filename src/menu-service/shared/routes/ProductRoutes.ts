@@ -1,16 +1,25 @@
 import { Router } from 'express';
-import { ProductController } from '../../controllers/ProductController';
+import {
+    GetProductsController,
+    GetProductsByIdController,
+    CreateProductsController,
+    PatchProductsController,
+    DeleteProductsController
+} from '../../controllers/index';
 import { productValidation } from '../middleware/productValidation';
 
 
 const router = Router();
-const productController = new ProductController();
+const getProduct = new GetProductsController();
+const getProductById = new GetProductsByIdController();
+const createProduct = new CreateProductsController();
+const patchProduct = new PatchProductsController();
+const deleteProduct = new DeleteProductsController();
 
-router.post('/api/product', productValidation, productController.createProduct.bind(productController));
-router.get('/api/product', productController.getProducts.bind(productController));
-router.get('/api/product/:id', productController.getProductById.bind(productController));
-router.put('/api/product/:id', productController.updateProduct.bind(productController));
-router.patch('/api/product/:id', productController.patchProduct.bind(productController));
-router.delete('/api/product/:id', productController.deleteProduct.bind(productController));
+router.post('/api/products', productValidation, createProduct.createProduct.bind(createProduct));
+router.get('/api/products', getProduct.getProducts.bind(getProduct));
+router.get('/api/products/:id', getProductById.getProductById.bind(getProductById));
+router.patch('/api/products/:id', patchProduct.patchProduct.bind(patchProduct));
+router.delete('/api/products/:id', deleteProduct.deleteProduct.bind(deleteProduct));
 
 export default router;

@@ -1,16 +1,15 @@
 
-export class SocialMediaDto{
-    public id: string
+export class SocialMediaDto
+{
     public facebook?: string[];
     public X?: string[];
     public instagram?: string[];
     public linkedIn?: string[];
 
-    constructor(id: string, facebook?: string[], X?: string[], instagram?: string[], linkedIn?: string[]) {
-        this.id = id;
-        this.facebook = facebook;
-        this.X = X;
-        this.instagram = instagram
-        this.linkedIn = linkedIn
+    constructor(socialmedia:any) {
+        this.facebook = socialmedia.facebook;
+        this.X = socialmedia.X;
+        this.instagram = socialmedia.instagram
+        this.linkedIn = socialmedia.linkedIn
     }
 }
