@@ -52,13 +52,14 @@ export class Store {
         email?: string[]
     };
 
+    @Column()
     alert?: string;
 
     @Column({ nullable: true })
     minOrderPrice?: number
 
-    @Column({type: 'json'})
-    address?: JSON;
+    @Column({nullable: true})
+    addressId?: string;
 
     @OneToMany(() => SocialMedia, (socialMedias) => socialMedias.store, { nullable: true, cascade: true, onDelete: 'SET NULL' })
     @JoinColumn()

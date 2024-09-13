@@ -6,7 +6,6 @@ import {
     PatchUsersController,
     DeleteUsersController
 } from '../../controllers/index';
-import { productValidation } from '../middleware/userValidation';
 
 
 const router = Router();

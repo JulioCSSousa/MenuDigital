@@ -7,8 +7,8 @@ export class AddressController {
 
         const addressRepository = AppDataSource.getRepository(Address);
         const newAddress = addressRepository.create(req.body);
-        addressRepository.save(newAddress)
-        return res.json(newAddress)
+        const savedAddress = await addressRepository.save(newAddress)
+        return res.json(savedAddress)
 
     }
 
@@ -21,9 +21,9 @@ export class AddressController {
     public async getAddressById(req: Request, res: Response): Promise<Response> {
 
         const addressRepository = AppDataSource.getRepository(Address);
-        let address = await addressRepository.findOne({ where: { addressId: req.params.id},relations: ["stores"]});
+        let address = await addressRepository.findOne({ where: { addressId: req.params.id}});
         if (!address) {
-            return res.status(404).json({ message: 'store not found' });
+            return res.status(404).json({ message: 'address not found' });
         }
         return res.json(address);
     }

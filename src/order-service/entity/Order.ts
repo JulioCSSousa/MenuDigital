@@ -28,10 +28,6 @@ export class Order {
   @Column()
   status?: string;
 
-  @OneToOne(() => Address, (address) => address.addressId, { nullable: true, eager: true, cascade: true })
-  @JoinColumn({ name: 'address' })
-  deliveryAddress?: Address;
-
   @Column()
   rank?: number
 

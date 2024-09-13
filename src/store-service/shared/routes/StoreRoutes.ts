@@ -1,16 +1,26 @@
 import { Router } from 'express';
-import { StoreController } from '../../controllers/StoreController';
+import {
+    CreateStoreController,
+    GetStoreByIdController,
+    GetStoreController,
+    DeleteStoreController,
+    PatchStoreController
+} from '../../controllers/index';
 import {storeValidation} from '../middleware/storeValidation'
 
 const router = Router();
 
-const storeController = new StoreController();
+const getstore = new GetStoreController();
+const getstorebyid = new GetStoreByIdController();
+const patchstore = new PatchStoreController();
+const delestore = new DeleteStoreController();
+const createstore = new CreateStoreController();
 
-router.post('/api/stores', storeValidation,storeController.createStore.bind(storeController));
-router.get('/api/stores', storeController.getStores.bind(storeController));
-router.get('/api/stores/:id', storeController.getStoreById.bind(storeController));
-router.put('/api/stores/:id', storeController.updateStore.bind(storeController));
-router.patch('/api/stores/:id', storeController.patchStore.bind(storeController));
-router.delete('/api/stores/:id', storeController.deleteStore.bind(storeController));
+
+router.post('/api/stores', storeValidation, createstore.createStore.bind(createstore));
+router.get('/api/stores', getstore.getStores.bind(getstore));
+router.get('/api/stores/:id', getstorebyid.getStoreById.bind(getstorebyid));
+router.patch('/api/stores/:id', patchstore.patchStore.bind(patchstore));
+router.delete('/api/stores/:id', delestore.deleteStore.bind(delestore));
 
 export default router;

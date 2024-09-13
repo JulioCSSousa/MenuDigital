@@ -4,7 +4,7 @@ export class AddressDto {
     public number?: string | null;
     public district?: string | null;
     public complement?: string | null;
-    public zipCde?: string | null
+    public zipCde?: string | null;
 
     constructor(address: any) {
         this.street = address.street

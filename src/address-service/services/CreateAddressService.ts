@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IAddress } from '../../address-service/interfaces/IAddress';
+import { IAddress } from '../entity/IAddress';
 
 export class CreateAddressService {
     private static readonly BASE_URL = 'http://localhost:8000/api/address';

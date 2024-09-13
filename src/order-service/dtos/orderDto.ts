@@ -1,4 +1,5 @@
-import { AddressDto } from "../../address-service/dtos/addressDto";
+
+import { AddressDto } from "../../address-service/responses/addressDto";
 import { Product } from "../../menu-service/entity/Product";
 
 export class orderDto {

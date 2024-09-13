@@ -1,9 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
+import { StoreDto } from "../../dtos/storeDto";
 
-export const storeSchema: yup.Schema = yup.object().shape({
+export const storeSchema: yup.Schema<StoreDto> = yup.object().shape({
 
-    storeName: yup.string().required(),
+    storeName: yup.string().required()
+
 });
 
 export async function storeValidation(request, response, next){
